@@ -668,9 +668,6 @@ libraries. As a first step, start installing python:</p>
 <pre class="pygments highlight"><code data-lang="bash"><span></span>sudo apt-get install -y python3 python3-pip python3-virtualenv python-dev python3-dev python-pip python-virtualenv&#x000A;sudo apt-get install libxml2-dev libxslt-dev</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>To manage dependencies taiga uses pipenv.</p>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -678,8 +675,10 @@ libraries. As a first step, start installing python:</p>
 <div class="title"></div>
 </td>
 <td class="content">
-As of November 2018, there are several options for installing pipenv.
-Please check the <a href="https://pipenv.readthedocs.io/en/latest/install/#installing-pipenv">pipenv documentation</a> and choose your preferred method.
+Between November 2018 and May 2020,
+taiga-back relied on <a href="https://pypi.org/project/pipenv/">pipenv</a> to manage dependencies and its virtualenv.
+Currently, taiga-back uses <code>pip</code> and <a href="https://pypi.org/project/pip-tools/">pip-tools</a> to manage dependecies
+and <code>venv</code> to create its virtualenv.
 </td>
 </tr>
 </table>
@@ -694,9 +693,9 @@ Please check the <a href="https://pipenv.readthedocs.io/en/latest/install/#insta
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Create a new virtualenv and install dependencies</div>
+<div class="title">Create a new virtualenv, activate it and install taiga-back base requirements</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>pipenv sync --dev</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>python -m venv .venv&#x000A;<span class="tok-nb">source</span> .venv/bin/activate&#x000A;python -m pip install --upgrade pip setuptools wheels&#x000A;python -m pip install --upgrade pip-tools</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -706,18 +705,18 @@ Please check the <a href="https://pipenv.readthedocs.io/en/latest/install/#insta
 <div class="title"></div>
 </td>
 <td class="content">
-It is important to use the <code>pipenv sync</code> command instead of <code>pipenv install</code>.
-The latter will update versions and perform a dependency resolution so the file <code>Pipfile.lock</code> might be modified
-and probably this is not intended.
-Of course you should use <code>pipenv install</code> when the goal is to add or upgrade a package.
+We are using the <code>venv</code> module, included in the standard library, to manage the taiga-back virtual environmnent
+but you can choose other ways to manage the virtual environment
+like <a href="https://pypi.org/project/virtualenvwrapper/">virtualenvwrapper</a>
+or <a href="https://pypi.org/project/pew/">pew</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="listingblock">
-<div class="title">Activate the virtualenv</div>
+<div class="title">Install dependencies</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>pipenv shell</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>python -m pip install -r requirements.txt -r requirements-devel.txt</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -756,7 +755,7 @@ configuration file to overwrite any setting in <code>settings/common.py</code>.<
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>pipenv shell  <span class="tok-c1"># enable the taiga virtualenv</span>&#x000A;python manage.py runserver</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>python manage.py runserver</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -797,7 +796,7 @@ tasks. You can run celery with:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>pipenv shell taiga  <span class="tok-c1"># enable the taiga virtualenv</span>&#x000A;celery -A taiga worker -l info -E</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>python -m celery -A taiga worker -l info -E</code></pre>
 </div>
 </div>
 </div>
@@ -1077,7 +1076,7 @@ dependencies again.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-12-03 11:51:27 CET
+Last updated 2020-06-02 12:00:15 CEST
 </div>
 </div>
 </div>
