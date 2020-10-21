@@ -103,6 +103,9 @@ include::issue-custom-attributes/endpoints.adoc[]
 === Issue custom attributes values
 include::issue-custom-attributes-values/endpoints.adoc[]
 
+=== Swimlanes
+include::swimlanes/endpoints.adoc[]
+
 === Wiki pages
 include::wiki/endpoints.adoc[]
 
@@ -265,6 +268,10 @@ include::issue-custom-attributes/summary.adoc[]
 [[issue-custom-attributes-values]]
 == Issue custom attributes values
 include::issue-custom-attributes-values/summary.adoc[]
+
+[[swimlanes]]
+== Swimlanes
+include::swimlanes/summary.adoc[]
 
 [[wiki]]
 == Wiki pages
@@ -586,6 +593,10 @@ include::generated/issues-custom-attributes-get-output.adoc[]
 [[object-issue-custom-attributes-values-detail]]
 === Issue custom attributes values detail
 include::generated/issues-custom-attributes-values-get-output.adoc[]
+
+[[object-swimlanes-detail]]
+=== Swimlanes detail
+include::generated/swimlanes-get-output.adoc[]
 
 [[object-wiki-detail]]
 === Wiki page

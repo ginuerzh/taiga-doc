@@ -141,6 +141,7 @@ milestone_id = project1.milestones.first().id
 milestone_slug = project1.milestones.first().slug
 role_from_id = project1.roles.last().id
 role_to_id = project1.roles.first().id
+swimlane_id = project1.swimlanes.all()[1].id
 
 notify_policy_id = NotifyPolicy.objects.filter(user_id=USER_ID).first().id
 owned_project = Project.objects.filter(owner_id=USER_ID).first()
@@ -591,6 +592,70 @@ reqs = OrderedDict([
     ("epics-delete", {
         "method": "DELETE",
         "url": "/api/v1/epics/{}".format(epic_id),
+    }),
+    ("swimlanes-patch", {
+          "method": "PATCH",
+          "url": "/api/v1/swimlanes/1",
+          "body": {
+              "name": "Patch swimlane name"
+          }
+    }),
+    ("swimlanes-create", {
+          "method": "POST",
+          "url": "/api/v1/swimlanes-statuses",
+          "body": {
+              "name": "New swimlane",
+              "order": 8,
+              "project": 1
+          }
+    }),
+    ("swimlanes-patch", {
+        "method": "PATCH",
+        "url": "/api/v1/swimlanes/1",
+        "body": {
+            "name": "Patch swimlane name"
+        }
+    }),
+    ("swimlanes-create", {
+        "method": "POST",
+        "url": "/api/v1/swimlanes",
+        "body": {
+            "name": "New swimlane",
+            "order": 8,
+            "project": 1
+        }
+    }),
+    ("swimlanes-simple-create", {
+        "method": "POST",
+        "url": "/api/v1/swimlanes",
+        "body": {
+            "project": 1,
+            "name": "New swimlane name"
+        }
+    }),
+    ("swimlanes-get", {
+        "method": "GET",
+        "url": "/api/v1/swimlanes/1",
+    }),
+    ("swimlanes-bulk-update-order", {
+        "method": "POST",
+        "url": "/api/v1/swimlanes/bulk_update_order",
+        "body": {
+            "project": 1,
+            "bulk_swimlanes": [[1, 10], [2, 5]]
+        }
+    }),
+    ("swimlanes-list", {
+        "method": "GET",
+        "url": "/api/v1/swimlanes",
+    }),
+    ("swimlanes-filtered-list", {
+        "method": "GET",
+        "url": "/api/v1/swimlanes?project=1",
+    }),
+    ("swimlanes-delete", {
+        "method": "DELETE",
+        "url": "/api/v1/swimlanes/1?moveTo={}".format(swimlane_id)
     }),
     ("add-attachment-to-us", {
         "method": "MULTIPART-POST",

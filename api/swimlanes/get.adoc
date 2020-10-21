@@ -1,0 +1,5 @@
+To get an swimlane send a GET request specifying the swimlane id in the url
+
+include::../generated/swimlanes-get-cmd.adoc[]
+
+The HTTP response is a 200 OK and the response body is a JSON link:#object-swimlane-detail[swimlane detail object]

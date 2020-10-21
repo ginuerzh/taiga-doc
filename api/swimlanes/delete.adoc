@@ -1,0 +1,5 @@
+To delete swimlanes send a DELETE specifying the swimlane id in the url
+
+include::../generated/swimlanes-delete-cmd.adoc[]
+
+When delete succeeded, the HTTP response is a 204 NO CONTENT with an empty body response

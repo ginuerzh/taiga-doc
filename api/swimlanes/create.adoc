@@ -1,0 +1,12 @@
+To create swimlanes send a POST request with the following data:
+
+- *name* (required)
+- *order*: integer
+- *project*: (required): project id
+
+
+include::../generated/swimlanes-create-cmd.adoc[]
+
+include::../generated/swimlanes-simple-create-cmd.adoc[]
+
+When the creation is successful, the HTTP response is a 201 Created and the response body is a JSON link:#object-swimlane-detail[swimlane detail object]

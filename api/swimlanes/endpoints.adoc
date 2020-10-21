@@ -1,0 +1,34 @@
+[cols="3*", options="header"]
+|===
+| URL
+| Method
+| Functionality
+
+| /api/v1/swimlanes
+| GET
+| link:#swimlanes-list[List swimlanes]
+
+| /api/v1/swimlanes
+| POST
+| link:#swimlanes-create[Create swimlane]
+
+| /api/v1/swimlanes/\{swimlaneId}
+| GET
+| link:#swimlanes-get[Get swimlane]
+
+| /api/v1/swimlanes/\{swimlaneId}
+| PUT
+| link:#swimlanes-edit[Modify swimlane]
+
+| /api/v1/swimlanes/\{swimlaneId}
+| PATCH
+| link:#swimlanes-edit[Modify partially an swimlane]
+
+| /api/v1/swimlanes/\{swimlaneId}
+| DELETE
+| link:#swimlanes-delete[Delete an swimlane]
+
+| /api/v1/swimlanes/bulk_update_order
+| POST
+| link:#swimlanes-bulk-update-order[Update swimlanes order in bulk mode]
+|===

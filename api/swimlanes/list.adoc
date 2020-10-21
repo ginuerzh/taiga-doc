@@ -1,0 +1,11 @@
+To list swimlane send a GET request with the following parameters:
+
+include::../generated/swimlanes-list-cmd.adoc[]
+
+The HTTP response is a 200 OK and the response body is a JSON list of link:#object-swimlane-detail[swimlane detail objects]
+
+The results can be filtered using the following parameters:
+
+- *project*: project id
+
+include::../generated/swimlanes-filtered-list-cmd.adoc[]

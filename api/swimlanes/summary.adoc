@@ -1,0 +1,23 @@
+[[swimlanes-list]]
+=== List
+include::../swimlanes/list.adoc[]
+
+[[swimlanes-create]]
+=== Create
+include::../swimlanes/create.adoc[]
+
+[[swimlanes-get]]
+=== Get
+include::../swimlanes/get.adoc[]
+
+[[swimlanes-edit]]
+=== Edit
+include::../swimlanes/edit.adoc[]
+
+[[swimlanes-delete]]
+=== Delete
+include::../swimlanes/delete.adoc[]
+
+[[swimlanes-bulk-update-order]]
+=== Bulk update order
+include::../swimlanes/bulk-update-order.adoc[]

@@ -1,0 +1,35 @@
+[source,json]
+----
+[
+    {
+        "id": 3,
+        "name": "Swimlane 1",
+        "order": 3,
+        "project": 1
+    },
+    {
+        "id": 4,
+        "name": "Swimlane 2",
+        "order": 4,
+        "project": 1
+    },
+    {
+        "id": 5,
+        "name": "Swimlane 3",
+        "order": 5,
+        "project": 1
+    },
+    {
+        "id": 2,
+        "name": "Swimlane 4",
+        "order": 5,
+        "project": 1
+    },
+    {
+        "id": 36,
+        "name": "Swimlane 5",
+        "order": 8,
+        "project": 1
+    }
+]
+----

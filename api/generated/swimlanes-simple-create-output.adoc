@@ -1,0 +1,9 @@
+[source,json]
+----
+{
+    "id": 37,
+    "name": "New swimlane name",
+    "order": 10,
+    "project": 1
+}
+----
