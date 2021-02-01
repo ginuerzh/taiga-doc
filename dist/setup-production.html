@@ -10,17 +10,16 @@
 <meta content="IE=edge" http-equiv="X-UA-Compatible">
 <![endif]-->
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="Asciidoctor 1.5.7.1" name="generator">
-<title>Taiga: Setup Production Environment</title>
-<style>/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
-/* Uncomment @import statement below to use as custom stylesheet */
+<meta content="Asciidoctor 2.0.10" name="generator">
+<title>Install Taiga in Production</title>
+<style>/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
 /*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
-article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary{display:block}
-audio,canvas,video{display:inline-block}
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
 audio:not([controls]){display:none;height:0}
-script{display:none!important}
 html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
-a{background:transparent}
+a{background:none}
 a:focus{outline:thin dotted}
 a:active,a:hover{outline:0}
 h1{font-size:2em;margin:.67em 0}
@@ -73,7 +72,7 @@ select{width:100%}
 div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
 a{color:#2156a5;text-decoration:underline;line-height:inherit}
 a:hover,a:focus{color:#1d4b8f}
-a img{border:none}
+a img{border:0}
 p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
 p aside{font-size:.875em;line-height:1.35;font-style:italic}
 h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
@@ -83,7 +82,7 @@ h2{font-size:1.6875em}
 h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
 h4,h5{font-size:1.125em}
 h6{font-size:1em}
-hr{border:solid #ddddd8;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
 em,i{font-style:italic;line-height:inherit}
 strong,b{font-weight:bold;line-height:inherit}
 small{font-size:60%;line-height:inherit}
@@ -114,20 +113,23 @@ table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
 table thead,table tfoot{background:#f7f8f7}
 table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
 table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
-table tr.even,table tr.alt,table tr:nth-of-type(even){background:#f8f8f7}
+table tr.even,table tr.alt{background:#f8f8f7}
 table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
 h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
 h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
 .clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
 .clearfix::after,.float-group::after{clear:both}
-*:not(pre)>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
-*:not(pre)>code.nobreak{word-wrap:normal}
-*:not(pre)>code.nowrap{white-space:nowrap}
-pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;text-rendering:optimizeSpeed}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
 em em{font-style:normal}
 strong strong{font-weight:400}
 .keyseq{color:rgba(51,51,51,.8)}
-kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
 .keyseq kbd:last-child{margin-right:0}
 .menuseq,.menuref{color:#000}
@@ -145,9 +147,9 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content{margin-top:1.25em}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
-#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #ddddd8}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #ddddd8;padding-bottom:8px}
-#header .details{border-bottom:1px solid #ddddd8;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
 #header .details br{display:none}
@@ -156,8 +158,8 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #header .details br+span#revremark::before{content:"\00a0|\00a0"}
 #header #revnumber{text-transform:capitalize}
 #header #revnumber::after{content:"\00a0"}
-#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #ddddd8;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
-#toc{border-bottom:1px solid #efefed;padding-bottom:.5em}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
 #toc>ul{margin-left:.125em}
 #toc ul.sectlevel0>li>a{font-style:italic}
 #toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
@@ -168,13 +170,13 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
-#toc.toc2{margin-top:0!important;background-color:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #efefed;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
 #toc.toc2 ul ul{margin-left:0;padding-left:1em}
 #toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
 body.toc2.toc-right{padding-left:0;padding-right:15em}
-body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #efefed;left:auto;right:0}}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
 @media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
 #toc.toc2{width:20em}
 #toc.toc2 #toctitle{font-size:1.375em}
@@ -184,20 +186,21 @@ body.toc2.toc-right{padding-left:0;padding-right:20em}}
 #content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
 #content #toc>:first-child{margin-top:0}
 #content #toc>:last-child{margin-bottom:0}
-#footer{max-width:100%;background-color:rgba(0,0,0,.8);padding:1.25em}
+#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
 #footer-text{color:rgba(255,255,255,.8);line-height:1.44}
 #content{margin-bottom:.625em}
 .sect1{padding-bottom:.625em}
 @media screen and (min-width:768px){#content{margin-bottom:1.25em}
 .sect1{padding-bottom:1.25em}}
 .sect1:last-child{padding-bottom:0}
-.sect1+.sect1{border-top:1px solid #efefed}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
 #content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
 #content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
 #content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
 #content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
 #content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
-.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
 .admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
 table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
 .paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
@@ -206,47 +209,47 @@ table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font
 .admonitionblock>table td.icon{text-align:center;width:80px}
 .admonitionblock>table td.icon img{max-width:none}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
-.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
 .exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
 .exampleblock>.content>:first-child{margin-top:0}
 .exampleblock>.content>:last-child{margin-bottom:0}
-.sidebarblock{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
 .sidebarblock>:first-child{margin-top:0}
 .sidebarblock>:last-child{margin-bottom:0}
 .sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
 .exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
-.literalblock pre,.listingblock pre:not(.highlight),.listingblock pre[class="highlight"],.listingblock pre[class^="highlight "],.listingblock pre.CodeRay,.listingblock pre.prettyprint{background:#f7f7f8}
-.sidebarblock .literalblock pre,.sidebarblock .listingblock pre:not(.highlight),.sidebarblock .listingblock pre[class="highlight"],.sidebarblock .listingblock pre[class^="highlight "],.sidebarblock .listingblock pre.CodeRay,.sidebarblock .listingblock pre.prettyprint{background:#f2f1f1}
-.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;padding:1em;font-size:.8125em}
-.literalblock pre.nowrap,.literalblock pre[class].nowrap,.listingblock pre.nowrap,.listingblock pre[class].nowrap{overflow-x:auto;white-space:pre;word-wrap:normal}
-@media screen and (min-width:768px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:.90625em}}
-@media screen and (min-width:1280px){.literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{font-size:1em}}
-.literalblock.output pre{color:#f7f7f8;background-color:rgba(0,0,0,.9)}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
 .listingblock pre.highlightjs{padding:0}
 .listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
 .listingblock pre.prettyprint{border-width:0}
-.listingblock>.content{position:relative}
-.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:#999}
-.listingblock:hover code[data-lang]::before{display:block}
-.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:#999}
-.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
-table.pyhltable{border-collapse:separate;border:0;margin-bottom:0;background:none}
-table.pyhltable td{vertical-align:top;padding-top:0;padding-bottom:0;line-height:1.45}
-table.pyhltable td.code{padding-left:.75em;padding-right:0}
-pre.pygments .lineno,table.pyhltable td:not(.code){color:#999;padding-left:0;padding-right:.5em;border-right:1px solid #ddddd8}
-pre.pygments .lineno{display:inline-block;margin-right:.25em}
-table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
 .quoteblock{margin:0 1em 1.25em 1.5em;display:table}
-.quoteblock>.title{margin-left:-1.5em;margin-bottom:.75em}
-.quoteblock blockquote,.quoteblock blockquote p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
 .quoteblock blockquote{margin:0;padding:0;border:0}
 .quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
 .quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
-.quoteblock .attribution{margin-top:.5em;margin-right:.5ex;text-align:right}
-.quoteblock .quoteblock{margin-left:0;margin-right:0;padding:.5em 0;border-left:3px solid rgba(0,0,0,.6)}
-.quoteblock .quoteblock blockquote{padding:0 0 0 .75em}
-.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
 .verseblock{margin:0 1em 1.25em}
 .verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
 .verseblock pre strong{font-weight:400}
@@ -254,13 +257,18 @@ table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
 .quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
 .quoteblock .attribution br,.verseblock .attribution br{display:none}
 .quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
 .quoteblock.abstract{margin:0 1em 1.25em;display:block}
 .quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
-.quoteblock.abstract blockquote,.quoteblock.abstract blockquote p{word-spacing:0;line-height:1.6}
-.quoteblock.abstract blockquote::before,.quoteblock.abstract p::before{display:none}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
 table.tableblock{max-width:100%;border-collapse:separate}
 p.tableblock:last-child{margin-bottom:0}
-td.tableblock>.content{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
 table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
 table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
@@ -272,8 +280,7 @@ table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>t
 table.frame-all{border-width:1px}
 table.frame-sides{border-width:0 1px}
 table.frame-topbot,table.frame-ends{border-width:1px 0}
-table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd){background:#f8f8f7}
-table.stripes-none tr,table.stripes-odd tr:nth-of-type(even){background:none}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
 th.halign-left,td.halign-left{text-align:left}
 th.halign-right,td.halign-right{text-align:right}
 th.halign-center,td.halign-center{text-align:center}
@@ -285,7 +292,6 @@ tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
 tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
 p.tableblock>code:only-child{background:none;padding:0}
 p.tableblock{font-size:1em}
-td>div.verse{white-space:pre}
 ol{margin-left:1.75em}
 ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
@@ -316,8 +322,8 @@ td.hdlist1{font-weight:bold;padding-bottom:1.25em}
 .colist td:not([class]):first-child img{max-width:none}
 .colist td:not([class]):last-child{padding:.25em 0}
 .thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
-.imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
-.imageblock.right,.imageblock[style*="float: right"]{margin:.25em 0 1.25em .625em}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
 .imageblock>.title{margin-bottom:0}
 .imageblock.thumb,.imageblock.th{border-width:6px}
 .imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
@@ -344,37 +350,37 @@ div.unbreakable{page-break-inside:avoid}
 .overline{text-decoration:overline}
 .line-through{text-decoration:line-through}
 .aqua{color:#00bfbf}
-.aqua-background{background-color:#00fafa}
+.aqua-background{background:#00fafa}
 .black{color:#000}
-.black-background{background-color:#000}
+.black-background{background:#000}
 .blue{color:#0000bf}
-.blue-background{background-color:#0000fa}
+.blue-background{background:#0000fa}
 .fuchsia{color:#bf00bf}
-.fuchsia-background{background-color:#fa00fa}
+.fuchsia-background{background:#fa00fa}
 .gray{color:#606060}
-.gray-background{background-color:#7d7d7d}
+.gray-background{background:#7d7d7d}
 .green{color:#006000}
-.green-background{background-color:#007d00}
+.green-background{background:#007d00}
 .lime{color:#00bf00}
-.lime-background{background-color:#00fa00}
+.lime-background{background:#00fa00}
 .maroon{color:#600000}
-.maroon-background{background-color:#7d0000}
+.maroon-background{background:#7d0000}
 .navy{color:#000060}
-.navy-background{background-color:#00007d}
+.navy-background{background:#00007d}
 .olive{color:#606000}
-.olive-background{background-color:#7d7d00}
+.olive-background{background:#7d7d00}
 .purple{color:#600060}
-.purple-background{background-color:#7d007d}
+.purple-background{background:#7d007d}
 .red{color:#bf0000}
-.red-background{background-color:#fa0000}
+.red-background{background:#fa0000}
 .silver{color:#909090}
-.silver-background{background-color:#bcbcbc}
+.silver-background{background:#bcbcbc}
 .teal{color:#006060}
-.teal-background{background-color:#007d7d}
+.teal-background{background:#007d7d}
 .white{color:#bfbfbf}
-.white-background{background-color:#fafafa}
+.white-background{background:#fafafa}
 .yellow{color:#bfbf00}
-.yellow-background{background-color:#fafa00}
+.yellow-background{background:#fafa00}
 span.icon>.fa{cursor:default}
 a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
@@ -383,7 +389,7 @@ a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
 .admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
 .admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
-.conum[data-value]{display:inline-block;color:#fff!important;background-color:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
 .conum[data-value] *{color:#fff!important}
 .conum[data-value]+b{display:none}
 .conum[data-value]::after{content:attr(data-value)}
@@ -396,7 +402,7 @@ p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
 p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
 p{margin-bottom:1.25rem}
 .sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
-.exampleblock>.content{background-color:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
 .print-only{display:none!important}
 @page{margin:1.25cm .75cm}
 @media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
@@ -411,7 +417,7 @@ svg{max-width:100%}
 p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
 h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
 #toc,.sidebarblock,.exampleblock>.content{background:none!important}
-#toc{border-bottom:1px solid #ddddd8!important;padding-bottom:0!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
 body.book #header{text-align:center}
 body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
 body.book #header .details{border:0!important;display:block;padding:0!important}
@@ -432,75 +438,75 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer{background:none}
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}</style>
-<style>.listingblock .pygments .hll { background-color: #ffffcc }
-.listingblock .pygments, .listingblock .pygments code { background: #f0f0f0; }
-.listingblock .pygments .tok-c { color: #60a0b0; font-style: italic } /* Comment */
-.listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
-.listingblock .pygments .tok-k { color: #007020; font-weight: bold } /* Keyword */
-.listingblock .pygments .tok-o { color: #666666 } /* Operator */
-.listingblock .pygments .tok-ch { color: #60a0b0; font-style: italic } /* Comment.Hashbang */
-.listingblock .pygments .tok-cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
-.listingblock .pygments .tok-cp { color: #007020 } /* Comment.Preproc */
-.listingblock .pygments .tok-cpf { color: #60a0b0; font-style: italic } /* Comment.PreprocFile */
-.listingblock .pygments .tok-c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
-.listingblock .pygments .tok-cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
-.listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
-.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
-.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
-.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
-.listingblock .pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
-.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
-.listingblock .pygments .tok-gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
-.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
-.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
-.listingblock .pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
-.listingblock .pygments .tok-kc { color: #007020; font-weight: bold } /* Keyword.Constant */
-.listingblock .pygments .tok-kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
-.listingblock .pygments .tok-kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
-.listingblock .pygments .tok-kp { color: #007020 } /* Keyword.Pseudo */
-.listingblock .pygments .tok-kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
-.listingblock .pygments .tok-kt { color: #902000 } /* Keyword.Type */
-.listingblock .pygments .tok-m { color: #40a070 } /* Literal.Number */
-.listingblock .pygments .tok-s { color: #4070a0 } /* Literal.String */
-.listingblock .pygments .tok-na { color: #4070a0 } /* Name.Attribute */
-.listingblock .pygments .tok-nb { color: #007020 } /* Name.Builtin */
-.listingblock .pygments .tok-nc { color: #0e84b5; font-weight: bold } /* Name.Class */
-.listingblock .pygments .tok-no { color: #60add5 } /* Name.Constant */
-.listingblock .pygments .tok-nd { color: #555555; font-weight: bold } /* Name.Decorator */
-.listingblock .pygments .tok-ni { color: #d55537; font-weight: bold } /* Name.Entity */
-.listingblock .pygments .tok-ne { color: #007020 } /* Name.Exception */
-.listingblock .pygments .tok-nf { color: #06287e } /* Name.Function */
-.listingblock .pygments .tok-nl { color: #002070; font-weight: bold } /* Name.Label */
-.listingblock .pygments .tok-nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
-.listingblock .pygments .tok-nt { color: #062873; font-weight: bold } /* Name.Tag */
-.listingblock .pygments .tok-nv { color: #bb60d5 } /* Name.Variable */
-.listingblock .pygments .tok-ow { color: #007020; font-weight: bold } /* Operator.Word */
-.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
-.listingblock .pygments .tok-mb { color: #40a070 } /* Literal.Number.Bin */
-.listingblock .pygments .tok-mf { color: #40a070 } /* Literal.Number.Float */
-.listingblock .pygments .tok-mh { color: #40a070 } /* Literal.Number.Hex */
-.listingblock .pygments .tok-mi { color: #40a070 } /* Literal.Number.Integer */
-.listingblock .pygments .tok-mo { color: #40a070 } /* Literal.Number.Oct */
-.listingblock .pygments .tok-sa { color: #4070a0 } /* Literal.String.Affix */
-.listingblock .pygments .tok-sb { color: #4070a0 } /* Literal.String.Backtick */
-.listingblock .pygments .tok-sc { color: #4070a0 } /* Literal.String.Char */
-.listingblock .pygments .tok-dl { color: #4070a0 } /* Literal.String.Delimiter */
-.listingblock .pygments .tok-sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
-.listingblock .pygments .tok-s2 { color: #4070a0 } /* Literal.String.Double */
-.listingblock .pygments .tok-se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
-.listingblock .pygments .tok-sh { color: #4070a0 } /* Literal.String.Heredoc */
-.listingblock .pygments .tok-si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
-.listingblock .pygments .tok-sx { color: #c65d09 } /* Literal.String.Other */
-.listingblock .pygments .tok-sr { color: #235388 } /* Literal.String.Regex */
-.listingblock .pygments .tok-s1 { color: #4070a0 } /* Literal.String.Single */
-.listingblock .pygments .tok-ss { color: #517918 } /* Literal.String.Symbol */
-.listingblock .pygments .tok-bp { color: #007020 } /* Name.Builtin.Pseudo */
-.listingblock .pygments .tok-fm { color: #06287e } /* Name.Function.Magic */
-.listingblock .pygments .tok-vc { color: #bb60d5 } /* Name.Variable.Class */
-.listingblock .pygments .tok-vg { color: #bb60d5 } /* Name.Variable.Global */
-.listingblock .pygments .tok-vi { color: #bb60d5 } /* Name.Variable.Instance */
-.listingblock .pygments .tok-vm { color: #bb60d5 } /* Name.Variable.Magic */
-.listingblock .pygments .tok-il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
+<style>pre.pygments .hll { background-color: #ffffcc }
+pre.pygments  { background: #f0f0f0; }
+pre.pygments .tok-c { color: #60a0b0; font-style: italic } /* Comment */
+pre.pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+pre.pygments .tok-k { color: #007020; font-weight: bold } /* Keyword */
+pre.pygments .tok-o { color: #666666 } /* Operator */
+pre.pygments .tok-ch { color: #60a0b0; font-style: italic } /* Comment.Hashbang */
+pre.pygments .tok-cm { color: #60a0b0; font-style: italic } /* Comment.Multiline */
+pre.pygments .tok-cp { color: #007020 } /* Comment.Preproc */
+pre.pygments .tok-cpf { color: #60a0b0; font-style: italic } /* Comment.PreprocFile */
+pre.pygments .tok-c1 { color: #60a0b0; font-style: italic } /* Comment.Single */
+pre.pygments .tok-cs { color: #60a0b0; background-color: #fff0f0 } /* Comment.Special */
+pre.pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+pre.pygments .tok-ge { font-style: italic } /* Generic.Emph */
+pre.pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+pre.pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+pre.pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+pre.pygments .tok-go { color: #888888 } /* Generic.Output */
+pre.pygments .tok-gp { color: #c65d09; font-weight: bold } /* Generic.Prompt */
+pre.pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+pre.pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+pre.pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+pre.pygments .tok-kc { color: #007020; font-weight: bold } /* Keyword.Constant */
+pre.pygments .tok-kd { color: #007020; font-weight: bold } /* Keyword.Declaration */
+pre.pygments .tok-kn { color: #007020; font-weight: bold } /* Keyword.Namespace */
+pre.pygments .tok-kp { color: #007020 } /* Keyword.Pseudo */
+pre.pygments .tok-kr { color: #007020; font-weight: bold } /* Keyword.Reserved */
+pre.pygments .tok-kt { color: #902000 } /* Keyword.Type */
+pre.pygments .tok-m { color: #40a070 } /* Literal.Number */
+pre.pygments .tok-s { color: #4070a0 } /* Literal.String */
+pre.pygments .tok-na { color: #4070a0 } /* Name.Attribute */
+pre.pygments .tok-nb { color: #007020 } /* Name.Builtin */
+pre.pygments .tok-nc { color: #0e84b5; font-weight: bold } /* Name.Class */
+pre.pygments .tok-no { color: #60add5 } /* Name.Constant */
+pre.pygments .tok-nd { color: #555555; font-weight: bold } /* Name.Decorator */
+pre.pygments .tok-ni { color: #d55537; font-weight: bold } /* Name.Entity */
+pre.pygments .tok-ne { color: #007020 } /* Name.Exception */
+pre.pygments .tok-nf { color: #06287e } /* Name.Function */
+pre.pygments .tok-nl { color: #002070; font-weight: bold } /* Name.Label */
+pre.pygments .tok-nn { color: #0e84b5; font-weight: bold } /* Name.Namespace */
+pre.pygments .tok-nt { color: #062873; font-weight: bold } /* Name.Tag */
+pre.pygments .tok-nv { color: #bb60d5 } /* Name.Variable */
+pre.pygments .tok-ow { color: #007020; font-weight: bold } /* Operator.Word */
+pre.pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+pre.pygments .tok-mb { color: #40a070 } /* Literal.Number.Bin */
+pre.pygments .tok-mf { color: #40a070 } /* Literal.Number.Float */
+pre.pygments .tok-mh { color: #40a070 } /* Literal.Number.Hex */
+pre.pygments .tok-mi { color: #40a070 } /* Literal.Number.Integer */
+pre.pygments .tok-mo { color: #40a070 } /* Literal.Number.Oct */
+pre.pygments .tok-sa { color: #4070a0 } /* Literal.String.Affix */
+pre.pygments .tok-sb { color: #4070a0 } /* Literal.String.Backtick */
+pre.pygments .tok-sc { color: #4070a0 } /* Literal.String.Char */
+pre.pygments .tok-dl { color: #4070a0 } /* Literal.String.Delimiter */
+pre.pygments .tok-sd { color: #4070a0; font-style: italic } /* Literal.String.Doc */
+pre.pygments .tok-s2 { color: #4070a0 } /* Literal.String.Double */
+pre.pygments .tok-se { color: #4070a0; font-weight: bold } /* Literal.String.Escape */
+pre.pygments .tok-sh { color: #4070a0 } /* Literal.String.Heredoc */
+pre.pygments .tok-si { color: #70a0d0; font-style: italic } /* Literal.String.Interpol */
+pre.pygments .tok-sx { color: #c65d09 } /* Literal.String.Other */
+pre.pygments .tok-sr { color: #235388 } /* Literal.String.Regex */
+pre.pygments .tok-s1 { color: #4070a0 } /* Literal.String.Single */
+pre.pygments .tok-ss { color: #517918 } /* Literal.String.Symbol */
+pre.pygments .tok-bp { color: #007020 } /* Name.Builtin.Pseudo */
+pre.pygments .tok-fm { color: #06287e } /* Name.Function.Magic */
+pre.pygments .tok-vc { color: #bb60d5 } /* Name.Variable.Class */
+pre.pygments .tok-vg { color: #bb60d5 } /* Name.Variable.Global */
+pre.pygments .tok-vi { color: #bb60d5 } /* Name.Variable.Instance */
+pre.pygments .tok-vm { color: #bb60d5 } /* Name.Variable.Magic */
+pre.pygments .tok-il { color: #40a070 } /* Literal.Number.Integer.Long */</style>
 </head>
 <link href="css/menu.css" rel="stylesheet">
 <link href="css/icons.css" rel="stylesheet">
@@ -516,135 +522,469 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li>
-<a href="#_introduction">1. Introduction</a>
-
-</li>
-<li>
-<a href="#_overview">2. Overview</a>
+<a href="#setup-prod-with-docker">1. Docker</a>
 <div class="mp-level">
 <a class="mp-back" href="#">back</a>
 <ul class="sectlevel2">
 <li>
-<a href="#_dependencies">2.1. Dependencies</a>
+<a href="#_requirements_and_caveats">1.1. Requirements and caveats</a>
 </li>
 <li>
-<a href="#_system_architecture_description">2.2. System Architecture Description</a>
+<a href="#_get_repository">1.2. Get repository</a>
+</li>
+<li>
+<a href="#_configuration">1.3. Configuration</a>
+</li>
+<li>
+<a href="#_configure_an_admin_user">1.4. Configure an admin user</a>
+</li>
+<li>
+<a href="#_up_and_running">1.5. Up and running</a>
+</li>
+<li>
+<a href="#_configure_the_proxy">1.6. Configure the proxy</a>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<a href="#_prerequisites">3. Prerequisites</a>
+<a href="#setup-prod-from-source-code">2. From source code</a>
 <div class="mp-level">
 <a class="mp-back" href="#">back</a>
 <ul class="sectlevel2">
 <li>
-<a href="#_installing_dependencies">3.1. Installing Dependencies</a>
+<a href="#_introduction">2.1. Introduction</a>
 </li>
 <li>
-<a href="#_configuring_dependencies">3.2. Configuring Dependencies</a>
+<a href="#_pre_requisites">2.2. Pre-requisites</a>
+</li>
+<li>
+<a href="#_dependencies">2.3. Dependencies</a>
+</li>
+<li>
+<a href="#_install_system_dependencies">2.4. Install System Dependencies</a>
+</li>
+<li>
+<a href="#_create_a_user_taiga">2.5. Create a user <code>taiga</code></a>
+</li>
+<li>
+<a href="#_configuring_postgresql_and_rabbitmq">2.6. Configuring PostgreSQL and RabbitMQ</a>
+</li>
+<li>
+<a href="#taiga-back">2.7. Backend Setup</a>
+</li>
+<li>
+<a href="#taiga-front">2.8. Frontend Setup</a>
+</li>
+<li>
+<a href="#taiga-events">2.9. Events Setup</a>
+</li>
+<li>
+<a href="#install-protected">2.10. Taiga protected Setup</a>
+</li>
+<li>
+<a href="#start-and-expose">2.11. Start and Expose Taiga</a>
+</li>
+<li>
+<a href="#troubleshooting">2.12. Troubleshooting</a>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<a href="#taiga-back">4. Backend Setup</a>
-<div class="mp-level">
-<a class="mp-back" href="#">back</a>
-<ul class="sectlevel2">
-<li>
-<a href="#_verification">4.1. Verification</a>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<a href="#taiga-front">5. Frontend Setup</a>
-
-</li>
-<li>
-<a href="#taiga-events">6. Events Setup</a>
-
-</li>
-<li>
-<a href="#start-and-expose">7. Start and Expose Taiga</a>
-<div class="mp-level">
-<a class="mp-back" href="#">back</a>
-<ul class="sectlevel2">
-<li>
-<a href="#systemd-and-gunicorn">7.1. systemd and gunicorn</a>
-</li>
-<li>
-<a href="#nginx">7.2. NGINX</a>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<a href="#_optional_modules_and_settings">8. Optional Modules and Settings</a>
-<div class="mp-level">
-<a class="mp-back" href="#">back</a>
-<ul class="sectlevel2">
-<li>
-<a href="#_async_tasks_optional">8.1. Async tasks (Optional)</a>
-</li>
-<li>
-<a href="#_taiga_hardening_https">8.2. Taiga Hardening - HTTPS</a>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<a href="#_troubleshooting">9. Troubleshooting</a>
-
 </li>
 </ul>
 </div>
 </div>
 <div class="scroller">
 <div id="header">
-<h1>Taiga: Setup Production Environment</h1>
+<h1>Install Taiga in Production</h1>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_introduction">1. Introduction</h2>
+<h2 id="setup-prod-with-docker">1. Docker</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This document explains how to deploy a full Taiga service for a production environment. A Taiga service consists of multiple Taiga modules which altogether make the Taiga platform.</p>
+<p>This is the easiest and <strong>recommended</strong> way to run Taiga in production.
+This document explains how to deploy a full Taiga service for a production environment with <code>docker</code>.</p>
 </div>
+<div class="sect2">
+<h3 id="_requirements_and_caveats">1.1. Requirements and caveats</h3>
 <div class="paragraph">
-<p>The standard Taiga platform consists of three main modules,
-and each one has its own dependencies both at compile time and runtime:</p>
+<p>Prior to start the installation, ensure you have installed:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>taiga-back</strong> (backend/API)</p>
+<p><code>docker</code></p>
+</li>
+<li>
+<p><code>docker-compose</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Additionally, it&#8217;s necessary to have familiarity with Docker, docker-compose and Docker repositories.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_repository">1.2. Get repository</h3>
+<div class="paragraph">
+<p>Clone <a href="https://github.com/taigaio/taiga-docker">this repository</a>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$ <span class="tok-nb">cd</span> taiga-docker/&#x000A;$ git checkout stable</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration">1.3. Configuration</h3>
+<div class="paragraph">
+<p>There are two options to configure taiga-docker, a simple and a complex configuration:</p>
+</div>
+<div class="sect3">
+<h4 id="_simple_configuration">1.3.1. Simple configuration:</h4>
+<div class="paragraph">
+<p>This configuration is likely to suit what you need. Edit environment variables in <code>docker-compose.yml</code> and <code>docker-compose-inits.yml</code>. Have in mind that some of the variables are in both files, and you need to edit both.</p>
+</div>
+<div class="paragraph">
+<div class="title">taiga-db</div>
+<p>This service is for configuring the database.</p>
+</div>
+<div class="paragraph">
+<p><code>POSTGRES_DB</code>, <code>POSTGRES_USER</code>, <code>POSTGRES_PASSWORD</code> vars will be used to create the database for Taiga.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title"></div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>These vars should have the same values as <code>taiga-back</code> vars.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<div class="title">taiga-back and taiga-async</div>
+<p>These services are for the REST API endpoints and the async tasks respectively.</p>
+</div>
+<div class="paragraph">
+<p>Database settings:</p>
+</div>
+<div class="paragraph">
+<p><code>POSTGRES_DB</code>, <code>POSTGRES_USER</code>, <code>POSTGRES_PASSWORD</code> will be used to connect to the Taiga database.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title"></div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>These vars should have the same values as <code>taiga-db</code> service vars.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>POSTGRES_HOST</code> is where the database is set. By default, it&#8217;s meant to be in the same host as the database service so it uses internal docker names.</p>
+</div>
+<div class="paragraph">
+<p>Taiga settings:</p>
+</div>
+<div class="paragraph">
+<p><code>TAIGA_SECRET_KEY</code> is the secret key of Taiga. Should be the same as this var in <code>taiga-events</code> and <code>taiga-async</code>.
+Besides, this should have the same value of <code>SECRET_KEY</code> in <code>taiga-protected</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>TAIGA_SITES_SCHEME</code>, <code>TAIGA_SITES_DOMAIN</code> should have the url where this is served: https[://]taiga.mycompany.com</p>
+</div>
+<div class="paragraph">
+<p>Session Settings:</p>
+</div>
+<div class="paragraph">
+<p>You can add <code>SESSION_COOKIE_SECURE</code> and <code>CSRF_COOKIE_SECURE</code> to x-environment and change its value. By default is "True", so some browsers only accept https connections.
+More info about this environment variables <a href="https://docs.djangoproject.com/en/3.1/ref/settings/#csrf-cookie-secure">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>Registration Settings:</p>
+</div>
+<div class="paragraph">
+<p><code>PUBLIC_REGISTER_ENABLED</code> to allow a public register when you configure this variable to "True". By default is "False".
+Should be the same as this var in <code>taiga-front</code>.</p>
+</div>
+<div class="paragraph">
+<p>Telemetry Settings:</p>
+</div>
+<div class="paragraph">
+<p>Telemetry anonymous data is collected in order to learn about the use of Taiga and improve the platform based on real scenarios.
+<code>ENABLE_TELEMETRY</code> could be opt out by setting this variable to "False". By default is "True".</p>
+</div>
+<div class="paragraph">
+<p>Email Settings:</p>
+</div>
+<div class="paragraph">
+<p>By default, email is configured with the <strong>console</strong> backend, which means that the emails will be shown in the stdout.
+If you have an smtp service, uncomment the "Email settings" section in <code>docker-compose.yml</code> and configure those environment variables:</p>
+</div>
+<div class="paragraph">
+<p><code>DEFAULT_FROM_EMAIL</code>, <code>EMAIL_HOST</code>, <code>EMAIL_PORT</code>, <code>EMAIL_HOST_USER</code>, <code>EMAIL_HOST_PASSWORD</code>, <code>EMAIL_USE_TLS</code>, <code>EMAIL_USE_SSL</code>.
+Uncomment <code>EMAIL_BACKEND</code> variable, but do not modify unless you know what you&#8217;re doing.</p>
+</div>
+<div class="paragraph">
+<p>Rabbit settings:</p>
+</div>
+<div class="paragraph">
+<p><code>RABBITMQ_USER</code>, <code>RABBITMQ_PASS</code> are used to leave messages in the rabbitmq services. Those variables should be the same as in <code>taiga-async-rabbitmq</code> and <code>taiga-events-rabbitmq</code>.</p>
+</div>
+<div class="paragraph">
+<p>Github settings:</p>
+</div>
+<div class="paragraph">
+<p><code>GITHUB_API_CLIENT_ID</code>, <code>GITHUB_API_CLIENT_SECRET</code> used for login with Github.
+Get these in your profile <a class="bare" href="https://github.com/settings/apps">https://github.com/settings/apps</a> or in your organization profile <a class="bare" href="https://github.com/organizations/{ORGANIZATION-SLUG}/settings/applications">https://github.com/organizations/{ORGANIZATION-SLUG}/settings/applications</a></p>
+</div>
+<div class="paragraph">
+<p>Gitlab settings:</p>
+</div>
+<div class="paragraph">
+<p><code>GITLAB_API_CLIENT_ID</code>, <code>GITLAB_API_CLIENT_SECRET</code>, <code>GITLAB_URL</code> used for login with GitLab.
+Get these in your profile <a class="bare" href="https://{YOUR-GITLAB}/profile/applications">https://{YOUR-GITLAB}/profile/applications</a> or in your organization profile <a class="bare" href="https://{YOUR-GITLAB}/admin/applications">https://{YOUR-GITLAB}/admin/applications</a></p>
+</div>
+<div class="paragraph">
+<p>Importers:</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s possible to configure different platforms to import projects from them. Make sure that <code>ENABLE_XXXX_IMPORTER</code> envvar is configured in both taiga-back (x-environment) and taiga-front. In taiga-back environment variables, it&#8217;s also necessary to configure different settings depending on the importer.</p>
+</div>
+<div class="paragraph">
+<div class="title">taiga-async-rabbitmq</div>
+<p>Configure this service to generate messages from <code>rabbitmq</code> for <code>taiga-async</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>RABBITMQ_ERLANG_COOKIE</code> is the secret erlang cookie.</p>
+</div>
+<div class="paragraph">
+<p><code>RABBITMQ_DEFAULT_USER</code>, <code>RABBITMQ_DEFAULT_PASS</code>, <code>RABBITMQ_DEFAULT_VHOST</code> will be used to connect to rabbitmq.</p>
+</div>
+<div class="paragraph">
+<div class="title">taiga-front</div>
+<p>This service is for configuring the frontend application.</p>
+</div>
+<div class="paragraph">
+<p>Taiga settings:</p>
+</div>
+<div class="paragraph">
+<p><code>TAIGA_URL</code> is where this Taiga instance should be served. It should be the same as <code>TAIGA_SITES_SCHEME</code>://<code>TAIGA_SITES_DOMAIN</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>TAIGA_WEBSOCKETS_URL</code> to connect to the events. This should have the same value as <code>TAIGA_SITES_DOMAIN</code>, ie: ws://taiga.mycompany.com</p>
+</div>
+<div class="paragraph">
+<p>Registration Settings:</p>
+</div>
+<div class="paragraph">
+<p><code>PUBLIC_REGISTER_ENABLED</code> to allow a public register, configure this variable to "true". By default is "false".
+Should be the same as this var in <code>taiga-back</code>.</p>
+</div>
+<div class="paragraph">
+<p>Github settings:</p>
+</div>
+<div class="paragraph">
+<p><code>GITHUB_CLIENT_ID</code> used for login with Github.
+Get these in your profile <a class="bare" href="https://github.com/settings/apps">https://github.com/settings/apps</a> or in your organization profile <a class="bare" href="https://github.com/organizations/{ORGANIZATION-SLUG}/settings/applications">https://github.com/organizations/{ORGANIZATION-SLUG}/settings/applications</a></p>
+</div>
+<div class="paragraph">
+<p>Gitlab settings:</p>
+</div>
+<div class="paragraph">
+<p><code>GITLAB_CLIENT_ID</code>, <code>GITLAB_URL</code> used for login with GitLab.
+Get these in your profile <a class="bare" href="https://{YOUR-GITLAB}/profile/applications">https://{YOUR-GITLAB}/profile/applications</a> or in your organization profile <a class="bare" href="https://{YOUR-GITLAB}/admin/applications">https://{YOUR-GITLAB}/admin/applications</a></p>
+</div>
+<div class="paragraph">
+<p>Importers:</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s possible to configure different platforms to import projects from them. Make sure that <code>ENABLE_XXXX_IMPORTER</code> envvar is configured in both taiga-back (x-environment) and taiga-front.</p>
+</div>
+<div class="paragraph">
+<div class="title">taiga-protected</div>
+<p>Configure this service and protects the attachments from external downloads.</p>
+</div>
+<div class="paragraph">
+<p><code>SECRET_KEY</code> should be the same as this var in <code>taiga-back</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>MAX_AGE</code> variable does that the attachments will be accessible with a token during a maximum (in seconds). After that, the token will expire.</p>
+</div>
+<div class="paragraph">
+<div class="title">taiga-events</div>
+<p>Configure this service for Taiga websocket server which allows taiga-front to show realtime changes in the backlog, taskboard, kanban and issues listing.</p>
+</div>
+<div class="paragraph">
+<p><code>RABBITMQ_USER</code>, <code>RABBITMQ_PASS</code> are used to read messages from rabbitmq.</p>
+</div>
+<div class="paragraph">
+<p><code>TAIGA_SECRET_KEY</code> should be the same as this var in <code>taiga-back</code>.</p>
+</div>
+<div class="paragraph">
+<div class="title">taiga-events-rabbitmq</div>
+<p>Configure this service to generate messages from <code>rabbitmq</code> for <code>taiga-events</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>RABBITMQ_ERLANG_COOKIE</code> is the secret erlang cookie.</p>
+</div>
+<div class="paragraph">
+<p><code>RABBITMQ_DEFAULT_USER</code>, <code>RABBITMQ_DEFAULT_PASS</code>, <code>RABBITMQ_DEFAULT_VHOST</code> vars will be used to connect to rabbitmq.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_complex_configuration">1.3.2. Complex configuration:</h4>
+<div class="paragraph">
+<p>In a complex configuration you ignore the environment variables in <code>docker-compose.yml</code> or <code>docker-compose-inits.yml</code>.</p>
+</div>
+<div class="paragraph">
+<div class="title">Map a <code>config.py</code> file</div>
+<p>From <a href="https://github.com/taigaio/taiga-back">taiga-back</a> download the file <code>settings/config.py.prod.example</code> and rename it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>mv settings/config.py.prod.example settings/config.py</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Edit it with your own configuration:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>connection to PostgreSQL</p>
+</li>
+<li>
+<p>connection to RabbitMQ for <code>taiga-events</code> and <code>taiga-async</code></p>
+</li>
+<li>
+<p>credentials for email</p>
+</li>
+<li>
+<p>Enable/disable anonymous telemetry</p>
+</li>
+<li>
+<p>Enable/disable public registration</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Check as well the rest of the configuration if you need to enable some advanced features.</p>
+</div>
+<div class="paragraph">
+<p>Map the file into <code>/taiga-back/settings/config.py</code>. Have in mind that you have to map it both in <code>docker-compose.yml</code> and <code>docker-compose-inits.yml</code>. You can check the <code>x-volumes</code> section in docker-compose.yml with an example.</p>
+</div>
+<div class="paragraph">
+<div class="title">Map a <code>conf.json</code> file</div>
+<p>From <a href="https://github.com/taigaio/taiga-front">taiga-front</a> download the file <code>dist/config.example.json</code> and rename it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>mv dist/config.example.json dist/config.json</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Edit it with your own configuration and map the file into <code>/taiga-front/dist/config.py</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configure_an_admin_user">1.4. Configure an admin user</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="sh"><span></span>$ docker-compose up -d&#x000A;&#x000A;$ docker-compose -f docker-compose.yml -f docker-compose-inits.yml run --rm taiga-manage createsuperuser</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_up_and_running">1.5. Up and running</h3>
+<div class="paragraph">
+<p>Once everything has been installed, launch all the services and check the result:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>$ docker-compose up -d</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Go to <code><a class="bare" href="http://localhost:9000">http://localhost:9000</a></code> and check your Taiga Platform is available.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configure_the_proxy">1.6. Configure the proxy</h3>
+<div class="paragraph">
+<p>Your host configuration needs to make a proxy to <code><a class="bare" href="http://localhost:9000">http://localhost:9000</a></code>. Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>server {&#x000A;  server_name taiga.mycompany.com;&#x000A;&#x000A;  ...&#x000A;&#x000A;  location / {&#x000A;    proxy_set_header Host $http_host;&#x000A;    proxy_set_header X-Real-IP $remote_addr;&#x000A;    proxy_set_header X-Scheme $scheme;&#x000A;    proxy_set_header X-Forwarded-Proto $scheme;&#x000A;    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;&#x000A;    proxy_redirect off;&#x000A;    proxy_pass http://localhost:9000/;&#x000A;  }&#x000A;}</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setup-prod-from-source-code">2. From source code</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_introduction">2.1. Introduction</h3>
+<div class="paragraph">
+<p>This document explains how to deploy a full Taiga service for a production environment. A Taiga service consists of multiple Taiga modules which altogether make the Taiga platform.</p>
+</div>
+<div class="paragraph">
+<p>The standard Taiga platform consists of several modules, and each one has its own dependencies both at compile time and runtime:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>taiga-back</strong> (API)</p>
+</li>
+<li>
+<p><strong>taiga-async-tasks</strong> (async tasks, like bulk email or exports generation)</p>
 </li>
 <li>
 <p><strong>taiga-front-dist</strong> (frontend)</p>
 </li>
 <li>
-<p><strong>taiga-events</strong> (websockets gateway) (optional)</p>
+<p><strong>taiga-events</strong> (websockets gateway)</p>
+</li>
+<li>
+<p><strong>taiga-protected</strong> (protected attachments)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Each module can be run on a unique machine or all of them can be installed to a different machine as well.
-In this tutorial we will setup everything on a single machine, and will be installing all three main Taiga modules.<br>
-This type of setup should suffice for small/medium production environments with low traffic.</p>
+<p>Each module can be run on a unique machine or all of them can be installed to a different machine as well. In this tutorial we will setup everything on a single machine. This type of setup should suffice for small/medium production environments with low traffic.</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_overview">2. Overview</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This tutorial assumes that you are using a clean, recently updated <strong>Ubuntu 16.04</strong> image.</p>
-</div>
-<div class="paragraph">
-<p>Due to the nature of the frontend, Taiga is accessed through a domain/public IP address, because the frontend application runs in your browser.
-The frontend must be able to communicate with the backend/API, therefore both the frontend and the backend must be accessible through a domain/public IP address too.</p>
+<div class="sect2">
+<h3 id="_pre_requisites">2.2. Pre-requisites</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>A clean, recently updated <strong>Ubuntu 20.04</strong> image</p>
+</li>
+<li>
+<p>At least 1GB RAM</p>
+</li>
+<li>
+<p>At least 20GB of free storage</p>
+</li>
+<li>
+<p>TLS certificate to serve Taiga with HTTPS</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Taiga installation must be done with a "regular" user, never with root!</strong></p>
@@ -664,147 +1004,69 @@ The frontend must be able to communicate with the backend/API, therefore both th
 <p><strong>Username:</strong> <code>taiga</code></p>
 </li>
 <li>
-<p><strong>System memory:</strong> <code>&gt;=1GB</code> (needed for compilation of lxml)</p>
-</li>
-<li>
 <p><strong>Working directory:</strong> <code>/home/taiga/</code> (default for user <code>taiga</code>)</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Changing the user from <code>taiga</code> to something else is not recommended at any point during deployment unless you&#8217;re well aware of what you&#8217;re doing.<br>
-Changing user may result in unexpected behavior or failed deployment!</p>
 </div>
 <div class="sect2">
-<h3 id="_dependencies">2.1. Dependencies</h3>
+<h3 id="_dependencies">2.3. Dependencies</h3>
 <div class="paragraph">
 <p>The typical Taiga setup described in this documentation depends on the following standalone major software installed separately from Taiga:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://www.python.org/">Python 3</a> - programming language and runtime environment of <strong>taiga-back</strong></p>
+<p><a href="https://www.python.org/">Python 3</a> - taiga-back, taiga-async and taiga-protected (Python &gt;= 3.6)</p>
+</li>
+<li>
+<p><a href="https://nodejs.org/en">Node.js</a> - taiga-events</p>
 </li>
 <li>
 <p><a href="https://www.nginx.com/">NGINX</a> - web server and reverse proxy</p>
 </li>
 <li>
-<p><a href="https://www.postgresql.org">PostgreSQL</a> - database</p>
+<p><a href="https://www.postgresql.org">PostgreSQL</a> - database (PostgreSQL &gt;= 9.4)</p>
 </li>
 <li>
-<p><a href="https://gunicorn.org">Gunicorn</a> - Python WSGI HTTP server</p>
-</li>
-<li>
-<p><a href="https://www.rabbitmq.com">RabbitMQ</a> - message broker</p>
-</li>
-<li>
-<p><a href="https://redis.io">Redis</a> - in-memory key-value database</p>
-</li>
-<li>
-<p><a href="https://nodejs.org/en">Node.js</a> - JavaScript runtime (required if <strong>taiga-events</strong> is present)</p>
-</li>
-<li>
-<p><a href="https://virtualenv.pypa.io/">Virtualenv</a> and <a href="https://virtualenvwrapper.readthedocs.io">virtualenvwrapper</a> - Python virtual environment managers</p>
+<p><a href="https://www.rabbitmq.com">RabbitMQ</a> - message broker, for taiga-async and taiga-events</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title"></div>
-</td>
-<td class="content">
-This list does not contain libraries and the Python dependencies required by <strong>taiga-back</strong>. For Python dependencies, refer to <a href="https://github.com/taigaio/taiga-back/blob/stable/requirements.txt">taiga-back/stable/requirements.txt</a>.
-</td>
-</tr>
-</table>
-</div>
 </div>
 <div class="sect2">
-<h3 id="_system_architecture_description">2.2. System Architecture Description</h3>
+<h3 id="_install_system_dependencies">2.4. Install System Dependencies</h3>
 <div class="paragraph">
-<p>This is a short system architecture description to help you understand the way Taiga is built and works.
-Before you go any further in the installation procedure, make sure you read this description to get a high-level overview of the architecture.</p>
-</div>
-<div class="paragraph">
-<p>Taiga consists of 2 core modules:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>taiga-back</strong></p>
-</li>
-<li>
-<p><strong>taiga-front</strong></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>taiga-back</strong> is built with <a href="https://www.djangoproject.com">Django</a> and written in Python 3. This serves the API endpoints for the frontend.<br>
-<strong>taiga-front</strong> is written mostly in <a href="https://angularjs.org">AngularJS</a> and <a href="https://coffeescript.org">CoffeeScript</a>. This consumes the API endpoints provided by the backend.</p>
-</div>
-<div class="paragraph">
-<p>The Python backend is exposed by gunicorn (port <code>8001/tcp</code>), which is a <a href="https://en.wikipedia.org/wiki/Web_Server_Gateway_Interface">Python WSGI HTTP server</a>. The process manager is <a href="https://systemd.io">systemd</a>, which runs gunicorn and taiga-back together.
-Technically the backend communicates with the <a href="https://en.wikipedia.org/wiki/Relational_database">RDBMS</a>, and through the frontend it allows the user to use the features of Taiga.
-The communication between the front- and backend is done using REST APIs.</p>
-</div>
-<div class="paragraph">
-<p>The <strong>backend</strong> is publicly exposed by NGINX which acts as a reverse-proxy in this case.<br>
-The <strong>frontend</strong> is located in the <code>dist</code> folder and is also exposed publicly by NGINX which acts as a static webserver in this case.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_prerequisites">3. Prerequisites</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This guide describes a configuration of Taiga which consists of three Taiga modules. Each module has its own dependencies on various packages.<br>
-The following subsections list the required packages and provide instructions on their installation and configuration for a successful Taiga deployment.</p>
-</div>
-<div class="sect2">
-<h3 id="_installing_dependencies">3.1. Installing Dependencies</h3>
-<div class="paragraph">
-<p>Execute the following commands to install all dependencies for all modules. Optional dependencies are marked with an inline comment, i.e.: <code># Optional: taiga-events</code>.</p>
-</div>
-<div class="listingblock" id="essential-packages">
-<div class="title">Essential packages:</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo apt-get update&#x000A;sudo apt-get install -y build-essential binutils-doc autoconf flex bison libjpeg-dev&#x000A;sudo apt-get install -y libfreetype6-dev zlib1g-dev libzmq3-dev libgdbm-dev libncurses5-dev&#x000A;sudo apt-get install -y automake libtool curl git tmux gettext&#x000A;sudo apt-get install -y nginx&#x000A;sudo apt-get install -y rabbitmq-server redis-server  <span class="tok-c1"># Optional: taiga-events or async tasks</span></code></pre>
-</div>
+<p>Install the following dependencies:</p>
 </div>
 <div class="listingblock">
-<div class="title">The <strong>taiga-back</strong> module depends on PostgreSQL (&gt;= 9.4) as its database:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo apt-get install -y postgresql-9.5 postgresql-contrib-9.5&#x000A;sudo apt-get install -y postgresql-doc-9.5 postgresql-server-dev-9.5</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo apt-get update&#x000A;sudo apt-get install -y build-essential binutils-doc autoconf flex bison libjpeg-dev&#x000A;sudo apt-get install -y libfreetype6-dev zlib1g-dev libzmq3-dev libgdbm-dev libncurses5-dev&#x000A;sudo apt-get install -y automake libtool curl git tmux gettext&#x000A;sudo apt-get install -y nginx&#x000A;sudo apt-get install -y rabbitmq-server</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Install PostgreSQL and remember to start the database server:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo apt-get install -y postgresql-12 postgresql-contrib-12 postgresql-doc-12 postgresql-server-dev-12&#x000A;sudo pg_ctlcluster <span class="tok-m">12</span> main start</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Python 3 must be installed along with a few third-party libraries:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo apt-get install -y python3 python3-pip python3-dev virtualenvwrapper&#x000A;sudo apt-get install -y libxml2-dev libxslt-dev&#x000A;sudo apt-get install -y libssl-dev libffi-dev</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo apt-get install -y python3 python3-pip python3-dev python3-venv&#x000A;sudo apt-get install -y libxml2-dev libxslt-dev&#x000A;sudo apt-get install -y libssl-dev libffi-dev</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title"></div>
-</td>
-<td class="content">
-<strong>virtualenvwrapper</strong> helps keeping the system clean of third party libraries, installed
-with the language package manager by installing these packages in an isolated virtual environment.
-</td>
-</tr>
-</table>
+<div class="listingblock">
+<div class="title">Install Node.js</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>curl -sL https://deb.nodesource.com/setup_12.x <span class="tok-p">|</span> sudo -E bash -&#x000A;sudo apt-get install -y nodejs</code></pre>
 </div>
-<div class="paragraph">
-<p>Restart the shell or type <code>bash</code> and press <code>Enter</code> to reload the shell environment with the new virtualenvwrapper variables and functions.</p>
 </div>
-<div class="paragraph">
-<p><strong>This step is mandatory before continuing with the deployment!</strong></p>
 </div>
+<div class="sect2">
+<h3 id="_create_a_user_taiga">2.5. Create a user <code>taiga</code></h3>
 <div class="listingblock">
 <div class="title">Create a user with root privileges named <code>taiga</code>:</div>
 <div class="content">
@@ -818,23 +1080,22 @@ with the language package manager by installing these packages in an isolated vi
 <div class="title"></div>
 </td>
 <td class="content">
-Do <strong>not</strong> change to the root user (<code>uid=0</code>) at this point!<br>
-Taiga deployment must be finished with the <code>taiga</code> user!
+Do <strong>not</strong> change to the root user (<code>uid=0</code>) at this point. Taiga deployment must be finished with the <code>taiga</code> user!
 </td>
 </tr>
 </table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuring_dependencies">3.2. Configuring Dependencies</h3>
+<h3 id="_configuring_postgresql_and_rabbitmq">2.6. Configuring PostgreSQL and RabbitMQ</h3>
 <div class="listingblock">
 <div class="title">Configure PostgreSQL with the initial user and database:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo -u postgres createuser taiga&#x000A;sudo -u postgres createdb taiga -O taiga --encoding<span class="tok-o">=</span><span class="tok-s1">&#39;utf-8&#39;</span> --locale<span class="tok-o">=</span>en_US.utf8 --template<span class="tok-o">=</span>template0</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo -u postgres createuser taiga --interactive --pwprompt&#x000A;sudo -u postgres createdb taiga -O taiga --encoding<span class="tok-o">=</span><span class="tok-s1">&#39;utf-8&#39;</span> --locale<span class="tok-o">=</span>en_US.utf8 --template<span class="tok-o">=</span>template0</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Create a user named <code>taiga</code>, and a virtualhost for RabbitMQ (Optional: taiga-events or async tasks)</div>
+<div class="title">Create a user named <code>taiga</code>, and a virtualhost for RabbitMQ (taiga-events and async tasks)</div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="bash"><span></span>sudo rabbitmqctl add_user taiga PASSWORD_FOR_EVENTS&#x000A;sudo rabbitmqctl add_vhost taiga&#x000A;sudo rabbitmqctl set_permissions -p taiga taiga <span class="tok-s2">&quot;.*&quot;</span> <span class="tok-s2">&quot;.*&quot;</span> <span class="tok-s2">&quot;.*&quot;</span></code></pre>
 </div>
@@ -846,130 +1107,112 @@ Taiga deployment must be finished with the <code>taiga</code> user!
 <div class="title"></div>
 </td>
 <td class="content">
-As the password will be used inside an URL later, please use only web safe
-characters: a-z, A-Z, 0-9, and  - . _ ~
+As the password will be used inside the Postgresql URL later, use only web safe characters: a-z, A-Z, 0-9, and  - . _ ~
 </td>
 </tr>
 </table>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="taiga-back">4. Backend Setup</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="taiga-back">2.7. Backend Setup</h3>
 <div class="paragraph">
-<p>This section describes the installation and configuration of the <strong>taiga-back</strong> module which serves the REST API endpoints.</p>
+<p>This section describes the installation and configuration of the <strong>taiga-back</strong> and <strong>taiga-async</strong> modules which serves the REST API endpoints and the async tasks respectively.</p>
 </div>
 <div class="listingblock">
-<div class="title">Download the code:</div>
+<div class="title">Get the code:</div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="bash"><span></span><span class="tok-nb">cd</span> ~&#x000A;git clone https://github.com/taigaio/taiga-back.git taiga-back&#x000A;<span class="tok-nb">cd</span> taiga-back&#x000A;git checkout stable</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Create a new virtualenv named <strong>taiga</strong>:</div>
+<div class="title">Create a virtualenv:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>mkvirtualenv -p /usr/bin/python3 taiga</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>python3 -m venv .venv --prompt taiga-back&#x000A;<span class="tok-nb">source</span> .venv/bin/activate&#x000A;<span class="tok-o">(</span>taiga-back<span class="tok-o">)</span> pip install --upgrade pip wheel</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Install all Python dependencies:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>pip install -r requirements.txt</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span><span class="tok-o">(</span>taiga-back<span class="tok-o">)</span> pip install -r requirements.txt</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Execute all migrations to populate the database with basic necessary initial data:</div>
+<div class="listingblock" id="add_contrib_protected">
+<div class="title">Install taiga-contrib-protected:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>python manage.py migrate --noinput&#x000A;python manage.py loaddata initial_user&#x000A;python manage.py loaddata initial_project_templates&#x000A;python manage.py compilemessages&#x000A;python manage.py collectstatic --noinput</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span><span class="tok-o">(</span>taiga-back<span class="tok-o">)</span> pip install git+https://github.com/taigaio/taiga-contrib-protected.git@master#egg<span class="tok-o">=</span>taiga-contrib-protected</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The above migrations create an administrator account. The login credentials are the following:</p>
+<div class="title">Settings file:</div>
+<p>Create a <code>settings/config.py</code> file based on the example provided:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>cp settings/config.py.prod.example settings/config.py</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Edit the file and configure:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>username</strong>: admin</p>
+<p>connection to PostgreSQL</p>
 </li>
 <li>
-<p><strong>password</strong>: 123123</p>
+<p>connection to RabbitMQ for <code>taiga-events</code> and <code>taiga-async</code></p>
+</li>
+<li>
+<p>credentials for email</p>
+</li>
+<li>
+<p>Enable/disable anonymous telemetry</p>
+</li>
+<li>
+<p>Enable/disable public registration</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title"></div>
-</td>
-<td class="content">
-<strong>Attention!</strong> Change the administrator account password to a strong password before enabling public access to your Taiga instance. If you miss this action, unauthorized persons can log in to your Taiga instance equipped with administrator privileges.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Check as well the rest of the configuration if you need to enable some adavanced features.</p>
+</div>
+<div class="listingblock">
+<div class="title">Execute all migrations to populate the database with basic necessary initial data:</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span><span class="tok-nb">source</span> .venv/bin/activate&#x000A;<span class="tok-o">(</span>taiga-back<span class="tok-o">)</span> <span class="tok-nv">DJANGO_SETTINGS_MODULE</span><span class="tok-o">=</span>settings.config python manage.py migrate --noinput&#x000A;<span class="tok-c1"># create an administrator with strong password</span>&#x000A;<span class="tok-o">(</span>taiga-back<span class="tok-o">)</span> <span class="tok-nv">CELERY_ENABLED</span><span class="tok-o">=</span>False <span class="tok-nv">DJANGO_SETTINGS_MODULE</span><span class="tok-o">=</span>settings.config python manage.py createsuperuser&#x000A;<span class="tok-o">(</span>taiga-back<span class="tok-o">)</span> <span class="tok-nv">DJANGO_SETTINGS_MODULE</span><span class="tok-o">=</span>settings.config python manage.py loaddata initial_project_templates&#x000A;<span class="tok-o">(</span>taiga-back<span class="tok-o">)</span> <span class="tok-nv">DJANGO_SETTINGS_MODULE</span><span class="tok-o">=</span>settings.config python manage.py compilemessages&#x000A;<span class="tok-o">(</span>taiga-back<span class="tok-o">)</span> <span class="tok-nv">DJANGO_SETTINGS_MODULE</span><span class="tok-o">=</span>settings.config python manage.py collectstatic --noinput</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p><strong>OPTIONAL:</strong>
-If you would like to have some example data loaded into Taiga,
-execute the following command to populate the database with sample projects and random data (useful for demos):</p>
+If you would like to have some example data loaded into Taiga, execute the following command to populate the database with sample projects and random data (useful for demos):</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>python manage.py sample_data</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span><span class="tok-o">(</span>taiga-back<span class="tok-o">)</span> <span class="tok-nv">CELERY_ENABLED</span><span class="tok-o">=</span>False <span class="tok-nv">DJANGO_SETTINGS_MODULE</span><span class="tok-o">=</span>settings.config python manage.py sample_data</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To finish the setup of <strong>taiga-back</strong>, create the initial configuration file
-for proper static/media file resolution, optionally with email sending support:</p>
+<div class="title">Verification</div>
+<p>To make sure that everything works, execute the following commands to run the backend in development mode for a quick test:</p>
 </div>
 <div class="listingblock">
-<div class="title">Copy-paste the following config into <code>~/taiga-back/settings/local.py</code> and update it with your own details:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-kn">from</span> <span class="tok-nn">.common</span> <span class="tok-kn">import</span> <span class="tok-o">*</span>&#x000A;&#x000A;<span class="tok-n">MEDIA_URL</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;http://example.com/media/&quot;</span>&#x000A;<span class="tok-n">STATIC_URL</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;http://example.com/static/&quot;</span>&#x000A;<span class="tok-n">SITES</span><span class="tok-p">[</span><span class="tok-s2">&quot;front&quot;</span><span class="tok-p">][</span><span class="tok-s2">&quot;scheme&quot;</span><span class="tok-p">]</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;http&quot;</span>&#x000A;<span class="tok-n">SITES</span><span class="tok-p">[</span><span class="tok-s2">&quot;front&quot;</span><span class="tok-p">][</span><span class="tok-s2">&quot;domain&quot;</span><span class="tok-p">]</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;example.com&quot;</span>&#x000A;&#x000A;<span class="tok-n">SECRET_KEY</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;theveryultratopsecretkey&quot;</span>&#x000A;&#x000A;<span class="tok-n">DEBUG</span> <span class="tok-o">=</span> <span class="tok-bp">False</span>&#x000A;<span class="tok-n">PUBLIC_REGISTER_ENABLED</span> <span class="tok-o">=</span> <span class="tok-bp">True</span>&#x000A;&#x000A;<span class="tok-n">DEFAULT_FROM_EMAIL</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;no-reply@example.com&quot;</span>&#x000A;<span class="tok-n">SERVER_EMAIL</span> <span class="tok-o">=</span> <span class="tok-n">DEFAULT_FROM_EMAIL</span>&#x000A;&#x000A;<span class="tok-c1">#CELERY_ENABLED = True</span>&#x000A;&#x000A;<span class="tok-n">EVENTS_PUSH_BACKEND</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;taiga.events.backends.rabbitmq.EventsPushBackend&quot;</span>&#x000A;<span class="tok-n">EVENTS_PUSH_BACKEND_OPTIONS</span> <span class="tok-o">=</span> <span class="tok-p">{</span><span class="tok-s2">&quot;url&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;amqp://taiga:PASSWORD_FOR_EVENTS@localhost:5672/taiga&quot;</span><span class="tok-p">}</span>&#x000A;&#x000A;<span class="tok-c1"># Uncomment and populate with proper connection parameters</span>&#x000A;<span class="tok-c1"># to enable email sending. `EMAIL_HOST_USER` should end by @&lt;domain&gt;.&lt;tld&gt;</span>&#x000A;<span class="tok-c1">#EMAIL_BACKEND = &quot;django.core.mail.backends.smtp.EmailBackend&quot;</span>&#x000A;<span class="tok-c1">#EMAIL_USE_TLS = False</span>&#x000A;<span class="tok-c1">#EMAIL_HOST = &quot;localhost&quot;</span>&#x000A;<span class="tok-c1">#EMAIL_HOST_USER = &quot;&quot;</span>&#x000A;<span class="tok-c1">#EMAIL_HOST_PASSWORD = &quot;&quot;</span>&#x000A;<span class="tok-c1">#EMAIL_PORT = 25</span>&#x000A;&#x000A;<span class="tok-c1"># Uncomment and populate with proper connection parameters</span>&#x000A;<span class="tok-c1"># to enable GitHub login/sign-in.</span>&#x000A;<span class="tok-c1">#GITHUB_API_CLIENT_ID = &quot;yourgithubclientid&quot;</span>&#x000A;<span class="tok-c1">#GITHUB_API_CLIENT_SECRET = &quot;yourgithubclientsecret&quot;</span></code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span><span class="tok-nb">source</span> .venv/bin/activate&#x000A;<span class="tok-o">(</span>taiga-back<span class="tok-o">)</span> <span class="tok-nv">DJANGO_SETTINGS_MODULE</span><span class="tok-o">=</span>settings.config python manage.py runserver</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open your browser at <a class="bare" href="http://localhost:8000/api/v1/">http://localhost:8000/api/v1/</a>. If your configuration is correct, you will see a JSON representation of REST API endpoints.
+Open your browser at <a class="bare" href="http://localhost:8000/admin/">http://localhost:8000/admin/</a> and log-in with your admin credentials.
+Stop the developtment server (Ctrl+C) before continuing.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_verification">4.1. Verification</h3>
+<h3 id="taiga-front">2.8. Frontend Setup</h3>
 <div class="paragraph">
-<p>(Optional step)
-To make sure that everything works, execute the following commands to run the backend in development mode for a quick test:</p>
+<p>This section describes the installation and configuration of the <strong>taiga-front</strong> module which serves the frontend application.</p>
 </div>
 <div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>workon taiga&#x000A;python manage.py runserver</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Open your browser at <a class="bare" href="http://localhost:8000/api/v1/">http://localhost:8000/api/v1/</a>.<br>
-If your configuration is correct, you will see a
-JSON representation of REST API endpoints.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title"></div>
-</td>
-<td class="content">
-At this stage, the backend has been deployed successfully, but to run the Python backend in production,
-a WSGI server must be configured first. The WSGI server configuration is explained later in this documentation.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="taiga-front">5. Frontend Setup</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Download the code from GitHub:</p>
-</div>
-<div class="listingblock">
-<div class="title">Download the code</div>
+<div class="title">Get the code</div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="bash"><span></span><span class="tok-nb">cd</span> ~&#x000A;git clone https://github.com/taigaio/taiga-front-dist.git taiga-front-dist&#x000A;<span class="tok-nb">cd</span> taiga-front-dist&#x000A;git checkout stable</code></pre>
 </div>
@@ -983,66 +1226,28 @@ a WSGI server must be configured first. The WSGI server configuration is explain
 <div class="listingblock">
 <div class="title">Edit the example configuration following the pattern below (replace with your own details):</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="json"><span></span><span class="tok-p">{</span>&#x000A;	<span class="tok-nt">&quot;api&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;http://example.com/api/v1/&quot;</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;eventsUrl&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;ws://example.com/events&quot;</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;debug&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;true&quot;</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;publicRegisterEnabled&quot;</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;feedbackEnabled&quot;</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;privacyPolicyUrl&quot;</span><span class="tok-p">:</span> <span class="tok-kc">null</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;termsOfServiceUrl&quot;</span><span class="tok-p">:</span> <span class="tok-kc">null</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;GDPRUrl&quot;</span><span class="tok-p">:</span> <span class="tok-kc">null</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;maxUploadFileSize&quot;</span><span class="tok-p">:</span> <span class="tok-kc">null</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;contribPlugins&quot;</span><span class="tok-p">:</span> <span class="tok-p">[]</span>&#x000A;<span class="tok-p">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="json"><span></span><span class="tok-p">{</span>&#x000A;	<span class="tok-nt">&quot;api&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;https://example.com/api/v1/&quot;</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;eventsUrl&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;wss://example.com/events&quot;</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;debug&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;true&quot;</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;publicRegisterEnabled&quot;</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;feedbackEnabled&quot;</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;privacyPolicyUrl&quot;</span><span class="tok-p">:</span> <span class="tok-kc">null</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;termsOfServiceUrl&quot;</span><span class="tok-p">:</span> <span class="tok-kc">null</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;GDPRUrl&quot;</span><span class="tok-p">:</span> <span class="tok-kc">null</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;maxUploadFileSize&quot;</span><span class="tok-p">:</span> <span class="tok-kc">null</span><span class="tok-p">,</span>&#x000A;	<span class="tok-nt">&quot;contribPlugins&quot;</span><span class="tok-p">:</span> <span class="tok-p">[]</span>&#x000A;<span class="tok-p">}</span></code></pre>
 </div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title"></div>
-</td>
-<td class="content">
-Be careful using copy-paste from browser to avoid <code>http://</code> duplication.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title"></div>
-</td>
-<td class="content">
-Also, make sure to remove the <code>:8000</code> portion of the api string. Causes 404 page on public facing sites if left in.
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
-<p>Having <strong>taiga-front-dist</strong> downloaded and configured is insufficient. The next step is to expose the code
-(in <strong>dist</strong> directory) under a static file web server.
-In this tutorial We use <strong>NGINX</strong> as a static file web server and reverse-proxy.
-The configuration of NGINX is explained later.</p>
+<p>Having <strong>taiga-front-dist</strong> downloaded and configured is insufficient. The next step is to expose the code (in <strong>dist</strong> directory) under a static file web server.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="taiga-events">6. Events Setup</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p><strong>This step is optional and can be skipped</strong></p>
+<p>In this tutorial We use <strong>NGINX</strong> as a static file web server and reverse-proxy. The configuration of NGINX is explained later.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="taiga-events">2.9. Events Setup</h3>
 <div class="paragraph">
 <p>This section provides instructions on downloading <strong>taiga-events</strong>, installing its dependencies and configuring it for use in production:</p>
 </div>
 <div class="paragraph">
 <p>The <strong>taiga-events</strong> module is the Taiga websocket server which allows <strong>taiga-front</strong> to show realtime changes in the backlog, taskboard, kanban and issues listing.</p>
 </div>
-<div class="paragraph">
-<p>The <strong>taiga-events</strong> module depends on <a href="#essential-packages">rabbitmq-server</a> as its message broker.</p>
-</div>
 <div class="listingblock">
-<div class="title">Download the code:</div>
+<div class="title">Get the code:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span><span class="tok-nb">cd</span> ~&#x000A;git clone https://github.com/taigaio/taiga-events.git taiga-events&#x000A;<span class="tok-nb">cd</span> taiga-events</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Install Node.js</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>curl -sL https://deb.nodesource.com/setup_8.x <span class="tok-p">|</span> sudo -E bash -&#x000A;sudo apt-get install -y nodejs</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span><span class="tok-nb">cd</span> ~&#x000A;git clone https://github.com/taigaio/taiga-events.git taiga-events&#x000A;<span class="tok-nb">cd</span> taiga-events&#x000A;git checkout stable</code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1052,62 +1257,63 @@ The configuration of NGINX is explained later.</p>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Create <code>config.json</code> file based on the provided example.</div>
+<div class="title">Create <code>.env</code> file based on the provided example.</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>cp config.example.json config.json</code></pre>
+<pre class="pygments highlight"><code data-lang="bash"><span></span>cp .env.example .env</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Update it with your RabbitMQ URL and your unique secret key. Your final <code>config.json</code> should look similar to the following example:</div>
+<div class="title">Update it with your RabbitMQ URL and your unique secret key. Your final <code>.env</code> should look similar to the following example:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="json"><span></span><span class="tok-p">{</span>&#x000A;    <span class="tok-nt">&quot;url&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;amqp://taiga:PASSWORD_FOR_EVENTS@localhost:5672/taiga&quot;</span><span class="tok-p">,</span>&#x000A;    <span class="tok-nt">&quot;secret&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;theveryultratopsecretkey&quot;</span><span class="tok-p">,</span>&#x000A;    <span class="tok-nt">&quot;webSocketServer&quot;</span><span class="tok-p">:</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-nt">&quot;port&quot;</span><span class="tok-p">:</span> <span class="tok-mi">8888</span>&#x000A;    <span class="tok-p">}</span>&#x000A;<span class="tok-p">}</span></code></pre>
+<pre class="pygments highlight"><code><span></span>RABBITMQ_URL=&quot;amqp://rabbitmquser:rabbitmqpassword@rabbitmqhost:5672&quot;&#x000A;SECRET=&quot;mysecret&quot;&#x000A;WEB_SOCKET_SERVER_PORT=8888&#x000A;APP_PORT=3023</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>secret</code> value in <code>config.json</code> must be the same as the <code>SECRET_KEY</code> in <code>~/taiga-back/settings/local.py</code>!</p>
+<p>The <code>secret</code> value in <code>.env</code> must be the same as the <code>SECRET_KEY</code> in <code>~/taiga-back/settings/config.py</code>.</p>
 </div>
-<div class="paragraph" id="taiga-events-systemd">
-<p>Add <strong>taiga-events</strong> to systemd configuration.</p>
-</div>
-<div class="listingblock">
-<div class="title">Copy-paste the code below into <code>/etc/systemd/system/taiga_events.service</code></div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="ini"><span></span><span class="tok-k">[Unit]</span>&#x000A;<span class="tok-na">Description</span><span class="tok-o">=</span><span class="tok-s">taiga_events</span>&#x000A;<span class="tok-na">After</span><span class="tok-o">=</span><span class="tok-s">network.target</span>&#x000A;&#x000A;<span class="tok-k">[Service]</span>&#x000A;<span class="tok-na">User</span><span class="tok-o">=</span><span class="tok-s">taiga</span>&#x000A;<span class="tok-na">WorkingDirectory</span><span class="tok-o">=</span><span class="tok-s">/home/taiga/taiga-events</span>&#x000A;<span class="tok-na">ExecStart</span><span class="tok-o">=</span><span class="tok-s">/bin/bash -c &quot;node_modules/coffeescript/bin/coffee index.coffee&quot;</span>&#x000A;<span class="tok-na">Restart</span><span class="tok-o">=</span><span class="tok-s">always</span>&#x000A;<span class="tok-na">RestartSec</span><span class="tok-o">=</span><span class="tok-s">3</span>&#x000A;&#x000A;<span class="tok-k">[Install]</span>&#x000A;<span class="tok-na">WantedBy</span><span class="tok-o">=</span><span class="tok-s">default.target</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Reload the systemd configurations:</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo systemctl daemon-reload&#x000A;sudo systemctl start taiga_events&#x000A;sudo systemctl <span class="tok-nb">enable</span> taiga_events</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="start-and-expose">7. Start and Expose Taiga</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Before moving further, make sure you installed  <strong>taiga-back</strong> and <strong>taiga-front-dist</strong>, however, having installed them is insufficient to run Taiga.</p>
-</div>
-<div class="paragraph">
-<p><strong>taiga-back</strong> should run under an application server, which in turn, should be executed and monitored
-by a process manager. For this task we will use <strong>gunicorn</strong> and <strong>systemd</strong> respectively.</p>
-</div>
-<div class="paragraph">
-<p>Both <strong>taiga-front-dist</strong> and <strong>taiga-back</strong> must be exposed to the outside using a proxy/static-file
-web server. For this purpose, Taiga uses <strong>NGINX</strong>.</p>
 </div>
 <div class="sect2">
-<h3 id="systemd-and-gunicorn">7.1. systemd and gunicorn</h3>
+<h3 id="install-protected">2.10. Taiga protected Setup</h3>
 <div class="paragraph">
-<p><strong>systemd</strong> is the process supervisor used by Ubuntu, and Taiga uses it to run <strong>gunicorn</strong>.<br>
-<strong>systemd</strong> is not only for executing processes, but it also has utils for monitoring them, collecting logs, and
-restarting processes if something goes wrong, and for starting processes on system boot.</p>
+<p>This section describes the installation and configuration of the <strong>taiga-protected</strong> modules which protects the attachments from external downloads.</p>
 </div>
 <div class="listingblock">
+<div class="title">Get the code:</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span><span class="tok-nb">cd</span> ~&#x000A;git clone https://github.com/taigaio/taiga-protected.git taiga-protected&#x000A;<span class="tok-nb">cd</span> taiga-protected&#x000A;git checkout stable</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Create a virtualenv:</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>python3 -m venv .venv --prompt taiga-protected&#x000A;<span class="tok-nb">source</span> .venv/bin/activate&#x000A;<span class="tok-o">(</span>taiga-protected<span class="tok-o">)</span> pip install --upgrade pip wheel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Install all Python dependencies:</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span><span class="tok-o">(</span>taiga-protected<span class="tok-o">)</span> pip install -r requirements.txt</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Copy the example config file:</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>cp ~/taiga-protected/env.sample ~/taiga-protected/.env</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>SECRET_KEY</code> value in <code>.env</code> must be the same as the <code>SECRET_KEY</code> in <code>~/taiga-back/settings/config.py</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="start-and-expose">2.11. Start and Expose Taiga</h3>
+<div class="paragraph">
+<p>Now it&#8217;s time to create the different systemd services to serve different modules of Taiga.</p>
+</div>
+<div class="listingblock" id="expose-taiga-back">
 <div class="title">Create a new systemd file at <code>/etc/systemd/system/taiga.service</code> to run <strong>taiga-back</strong>:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="ini"><span></span><span class="tok-k">[Unit]</span>&#x000A;<span class="tok-na">Description</span><span class="tok-o">=</span><span class="tok-s">taiga_back</span>&#x000A;<span class="tok-na">After</span><span class="tok-o">=</span><span class="tok-s">network.target</span>&#x000A;&#x000A;<span class="tok-k">[Service]</span>&#x000A;<span class="tok-na">User</span><span class="tok-o">=</span><span class="tok-s">taiga</span>&#x000A;<span class="tok-na">Environment</span><span class="tok-o">=</span><span class="tok-s">PYTHONUNBUFFERED=true</span>&#x000A;<span class="tok-na">WorkingDirectory</span><span class="tok-o">=</span><span class="tok-s">/home/taiga/taiga-back</span>&#x000A;<span class="tok-na">ExecStart</span><span class="tok-o">=</span><span class="tok-s">/home/taiga/.virtualenvs/taiga/bin/gunicorn --workers 4 --timeout 60 -b 127.0.0.1:8001 taiga.wsgi</span>&#x000A;<span class="tok-na">Restart</span><span class="tok-o">=</span><span class="tok-s">always</span>&#x000A;<span class="tok-na">RestartSec</span><span class="tok-o">=</span><span class="tok-s">3</span>&#x000A;&#x000A;<span class="tok-k">[Install]</span>&#x000A;<span class="tok-na">WantedBy</span><span class="tok-o">=</span><span class="tok-s">default.target</span></code></pre>
+<pre class="pygments highlight"><code data-lang="ini"><span></span><span class="tok-k">[Unit]</span>&#x000A;<span class="tok-na">Description</span><span class="tok-o">=</span><span class="tok-s">taiga_back</span>&#x000A;<span class="tok-na">After</span><span class="tok-o">=</span><span class="tok-s">network.target</span>&#x000A;&#x000A;<span class="tok-k">[Service]</span>&#x000A;<span class="tok-na">User</span><span class="tok-o">=</span><span class="tok-s">taiga</span>&#x000A;<span class="tok-na">WorkingDirectory</span><span class="tok-o">=</span><span class="tok-s">/home/taiga/taiga-back</span>&#x000A;<span class="tok-na">ExecStart</span><span class="tok-o">=</span><span class="tok-s">/home/taiga/taiga-back/.venv/bin/gunicorn --workers 4 --timeout 60 --log-level=info --access-logfile - --bind 0.0.0.0:8001 taiga.wsgi</span>&#x000A;<span class="tok-na">Restart</span><span class="tok-o">=</span><span class="tok-s">always</span>&#x000A;<span class="tok-na">RestartSec</span><span class="tok-o">=</span><span class="tok-s">3</span>&#x000A;&#x000A;<span class="tok-na">Environment</span><span class="tok-o">=</span><span class="tok-s">PYTHONUNBUFFERED=true</span>&#x000A;<span class="tok-na">Environment</span><span class="tok-o">=</span><span class="tok-s">DJANGO_SETTINGS_MODULE=settings.config</span>&#x000A;&#x000A;<span class="tok-k">[Install]</span>&#x000A;<span class="tok-na">WantedBy</span><span class="tok-o">=</span><span class="tok-s">default.target</span></code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1124,13 +1330,67 @@ restarting processes if something goes wrong, and for starting processes on syst
 <pre class="pygments highlight"><code data-lang="bash"><span></span>sudo systemctl status taiga</code></pre>
 </div>
 </div>
+<div class="listingblock" id="expose-taiga-async">
+<div class="title">Create a new systemd file at <code>/etc/systemd/system/taiga-async.service</code> to run <strong>taiga-async</strong>:</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="ini"><span></span><span class="tok-k">[Unit]</span>&#x000A;<span class="tok-na">Description</span><span class="tok-o">=</span><span class="tok-s">taiga_async</span>&#x000A;<span class="tok-na">After</span><span class="tok-o">=</span><span class="tok-s">network.target</span>&#x000A;&#x000A;<span class="tok-k">[Service]</span>&#x000A;<span class="tok-na">User</span><span class="tok-o">=</span><span class="tok-s">taiga</span>&#x000A;<span class="tok-na">WorkingDirectory</span><span class="tok-o">=</span><span class="tok-s">/home/taiga/taiga-back</span>&#x000A;<span class="tok-na">ExecStart</span><span class="tok-o">=</span><span class="tok-s">/home/taiga/taiga-back/.venv/bin/celery -A taiga.celery worker --concurrency 4 -l INFO</span>&#x000A;<span class="tok-na">Restart</span><span class="tok-o">=</span><span class="tok-s">always</span>&#x000A;<span class="tok-na">RestartSec</span><span class="tok-o">=</span><span class="tok-s">3</span>&#x000A;<span class="tok-na">ExecStop</span><span class="tok-o">=</span><span class="tok-s">/bin/kill -s TERM $MAINPID</span>&#x000A;&#x000A;<span class="tok-na">Environment</span><span class="tok-o">=</span><span class="tok-s">PYTHONUNBUFFERED=true</span>&#x000A;<span class="tok-na">Environment</span><span class="tok-o">=</span><span class="tok-s">DJANGO_SETTINGS_MODULE=settings.config</span>&#x000A;&#x000A;<span class="tok-k">[Install]</span>&#x000A;<span class="tok-na">WantedBy</span><span class="tok-o">=</span><span class="tok-s">default.target</span></code></pre>
 </div>
-<div class="sect2">
-<h3 id="nginx">7.2. NGINX</h3>
+</div>
 <div class="paragraph">
-<p>NGINX is used as a static file web server to serve <strong>taiga-front-dist</strong> and send proxy requests to <strong>taiga-back</strong>.</p>
+<p>Reload the systemd daemon and start the <code>taiga-async</code> service:</p>
 </div>
 <div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo systemctl daemon-reload&#x000A;sudo systemctl start taiga-async&#x000A;sudo systemctl <span class="tok-nb">enable</span> taiga-async</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">To verify that the service is running, execute the following command:</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo systemctl status taiga-async</code></pre>
+</div>
+</div>
+<div class="listingblock" id="expose-taiga-events">
+<div class="title">Create a new systemd file at <code>/etc/systemd/system/taiga-events.service</code> to run <strong>taiga-events</strong>:</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="ini"><span></span><span class="tok-k">[Unit]</span>&#x000A;<span class="tok-na">Description</span><span class="tok-o">=</span><span class="tok-s">taiga_events</span>&#x000A;<span class="tok-na">After</span><span class="tok-o">=</span><span class="tok-s">network.target</span>&#x000A;&#x000A;<span class="tok-k">[Service]</span>&#x000A;<span class="tok-na">User</span><span class="tok-o">=</span><span class="tok-s">taiga</span>&#x000A;<span class="tok-na">WorkingDirectory</span><span class="tok-o">=</span><span class="tok-s">/home/taiga/taiga-events</span>&#x000A;<span class="tok-na">ExecStart</span><span class="tok-o">=</span><span class="tok-s">npm run start:production</span>&#x000A;<span class="tok-na">Restart</span><span class="tok-o">=</span><span class="tok-s">always</span>&#x000A;<span class="tok-na">RestartSec</span><span class="tok-o">=</span><span class="tok-s">3</span>&#x000A;&#x000A;<span class="tok-k">[Install]</span>&#x000A;<span class="tok-na">WantedBy</span><span class="tok-o">=</span><span class="tok-s">default.target</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Reload the systemd daemon and start the <code>taiga-events</code> service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo systemctl daemon-reload&#x000A;sudo systemctl start taiga-events&#x000A;sudo systemctl <span class="tok-nb">enable</span> taiga-events</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">To verify that the service is running, execute the following command:</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo systemctl status taiga-events</code></pre>
+</div>
+</div>
+<div class="listingblock" id="expose-taiga-protected">
+<div class="title">Create a new systemd file at <code>/etc/systemd/system/taiga-protected.service</code> to run <strong>taiga-protected</strong>:</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="ini"><span></span><span class="tok-k">[Unit]</span>&#x000A;<span class="tok-na">Description</span><span class="tok-o">=</span><span class="tok-s">taiga_protected</span>&#x000A;<span class="tok-na">After</span><span class="tok-o">=</span><span class="tok-s">network.target</span>&#x000A;&#x000A;<span class="tok-k">[Service]</span>&#x000A;<span class="tok-na">User</span><span class="tok-o">=</span><span class="tok-s">taiga</span>&#x000A;<span class="tok-na">WorkingDirectory</span><span class="tok-o">=</span><span class="tok-s">/home/taiga/taiga-protected</span>&#x000A;<span class="tok-na">ExecStart</span><span class="tok-o">=</span><span class="tok-s">/home/taiga/taiga-protected/.venv/bin/gunicorn --workers 4 --timeout 60 --log-level=info --access-logfile - --bind 0.0.0.0:8003 server:app</span>&#x000A;<span class="tok-na">Restart</span><span class="tok-o">=</span><span class="tok-s">always</span>&#x000A;<span class="tok-na">RestartSec</span><span class="tok-o">=</span><span class="tok-s">3</span>&#x000A;&#x000A;<span class="tok-na">Environment</span><span class="tok-o">=</span><span class="tok-s">PYTHONUNBUFFERED=true</span>&#x000A;&#x000A;<span class="tok-k">[Install]</span>&#x000A;<span class="tok-na">WantedBy</span><span class="tok-o">=</span><span class="tok-s">default.target</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Reload the systemd daemon and start the <code>taiga-protected</code> service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo systemctl daemon-reload&#x000A;sudo systemctl start taiga-protected&#x000A;sudo systemctl <span class="tok-nb">enable</span> taiga-protected</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">To verify that the service is running, execute the following command:</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo systemctl status taiga-protected</code></pre>
+</div>
+</div>
+<div class="listingblock" id="nginx">
 <div class="title">Remove the default NGINX config file to avoid collision with Taiga:</div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="bash"><span></span>sudo rm /etc/nginx/sites-enabled/default</code></pre>
@@ -1145,7 +1405,7 @@ restarting processes if something goes wrong, and for starting processes on syst
 <div class="listingblock">
 <div class="title">To configure a new NGINX virtualhost for Taiga, create and edit the <code>/etc/nginx/conf.d/taiga.conf</code> file, as follows:</div>
 <div class="content">
-<pre class="pygments highlight"><code data-lang="nginx"><span></span><span class="tok-k">server</span> <span class="tok-p">{</span>&#x000A;    <span class="tok-kn">listen</span> <span class="tok-mi">80</span> <span class="tok-s">default_server</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">server_name</span> <span class="tok-s">_</span><span class="tok-p">;</span>  <span class="tok-c1">#  See http://nginx.org/en/docs/http/server_names.html</span>&#x000A;&#x000A;    <span class="tok-kn">large_client_header_buffers</span> <span class="tok-mi">4</span> <span class="tok-mi">32k</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">client_max_body_size</span> <span class="tok-s">50M</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">charset</span> <span class="tok-s">utf-8</span><span class="tok-p">;</span>&#x000A;&#x000A;    <span class="tok-kn">access_log</span> <span class="tok-s">/home/taiga/logs/nginx.access.log</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">error_log</span> <span class="tok-s">/home/taiga/logs/nginx.error.log</span><span class="tok-p">;</span>&#x000A;&#x000A;    <span class="tok-c1"># Frontend</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">root</span> <span class="tok-s">/home/taiga/taiga-front-dist/dist/</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">try_files</span> <span class="tok-nv">$uri</span> <span class="tok-nv">$uri/</span> <span class="tok-s">/index.html</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Backend</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/api</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Host</span> <span class="tok-nv">$http_host</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Real-IP</span> <span class="tok-nv">$remote_addr</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Scheme</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-Proto</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-For</span> <span class="tok-nv">$proxy_add_x_forwarded_for</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_pass</span> <span class="tok-s">http://127.0.0.1:8001/api</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_redirect</span> <span class="tok-no">off</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Admin access (/admin/)</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/admin</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Host</span> <span class="tok-nv">$http_host</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Real-IP</span> <span class="tok-nv">$remote_addr</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Scheme</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-Proto</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-For</span> <span class="tok-nv">$proxy_add_x_forwarded_for</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_pass</span> <span class="tok-s">http://127.0.0.1:8001</span><span class="tok-nv">$request_uri</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_redirect</span> <span class="tok-no">off</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Static files</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/static</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">alias</span> <span class="tok-s">/home/taiga/taiga-back/static</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Media files</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/media</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">alias</span> <span class="tok-s">/home/taiga/taiga-back/media</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Events</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/events</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">proxy_pass</span> <span class="tok-s">http://127.0.0.1:8888/events</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_http_version</span> <span class="tok-mi">1</span><span class="tok-s">.1</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Upgrade</span> <span class="tok-nv">$http_upgrade</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Connection</span> <span class="tok-s">&quot;upgrade&quot;</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_connect_timeout</span> <span class="tok-s">7d</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_send_timeout</span> <span class="tok-s">7d</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_read_timeout</span> <span class="tok-s">7d</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;<span class="tok-p">}</span></code></pre>
+<pre class="pygments highlight"><code data-lang="nginx"><span></span><span class="tok-k">server</span> <span class="tok-p">{</span>&#x000A;    <span class="tok-kn">listen</span> <span class="tok-mi">80</span> <span class="tok-s">default_server</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">server_name</span> <span class="tok-s">_</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">return</span> <span class="tok-mi">301</span> <span class="tok-s">https://</span><span class="tok-nv">$server_name$request_uri</span><span class="tok-p">;</span>&#x000A;<span class="tok-p">}</span>&#x000A;&#x000A;<span class="tok-k">server</span> <span class="tok-p">{</span>&#x000A;    <span class="tok-kn">listen</span> <span class="tok-mi">443</span> <span class="tok-s">default_server</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">server_name</span> <span class="tok-s">_</span><span class="tok-p">;</span>  <span class="tok-c1">#  See http://nginx.org/en/docs/http/server_names.html</span>&#x000A;&#x000A;    <span class="tok-kn">large_client_header_buffers</span> <span class="tok-mi">4</span> <span class="tok-mi">32k</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">client_max_body_size</span> <span class="tok-s">50M</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">charset</span> <span class="tok-s">utf-8</span><span class="tok-p">;</span>&#x000A;&#x000A;    <span class="tok-kn">access_log</span> <span class="tok-s">/home/taiga/logs/nginx.access.log</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">error_log</span> <span class="tok-s">/home/taiga/logs/nginx.error.log</span><span class="tok-p">;</span>&#x000A;&#x000A;    <span class="tok-c1"># Frontend</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">root</span> <span class="tok-s">/home/taiga/taiga-front-dist/dist/</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">try_files</span> <span class="tok-nv">$uri</span> <span class="tok-nv">$uri/</span> <span class="tok-s">/index.html</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Backend</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/api</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Host</span> <span class="tok-nv">$http_host</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Real-IP</span> <span class="tok-nv">$remote_addr</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Scheme</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-Proto</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-For</span> <span class="tok-nv">$proxy_add_x_forwarded_for</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_pass</span> <span class="tok-s">http://127.0.0.1:8001/api</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_redirect</span> <span class="tok-no">off</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Admin access (/admin/)</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/admin</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Host</span> <span class="tok-nv">$http_host</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Real-IP</span> <span class="tok-nv">$remote_addr</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Scheme</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-Proto</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-For</span> <span class="tok-nv">$proxy_add_x_forwarded_for</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_pass</span> <span class="tok-s">http://127.0.0.1:8001</span><span class="tok-nv">$request_uri</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_redirect</span> <span class="tok-no">off</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Static files</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/static</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">alias</span> <span class="tok-s">/home/taiga/taiga-back/static</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Media</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/_protected</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">internal</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">alias</span> <span class="tok-s">/home/taiga/taiga-back/media/</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">add_header</span> <span class="tok-s">Content-disposition</span> <span class="tok-s">&quot;attachment&quot;</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Unprotected section</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/media/exports</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">alias</span> <span class="tok-s">/home/taiga/taiga-back/media/exports/</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">add_header</span> <span class="tok-s">Content-disposition</span> <span class="tok-s">&quot;attachment&quot;</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/media</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Host</span> <span class="tok-nv">$http_host</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Real-IP</span> <span class="tok-nv">$remote_addr</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Scheme</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-Proto</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-For</span> <span class="tok-nv">$proxy_add_x_forwarded_for</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_pass</span> <span class="tok-s">http://127.0.0.1:8003/</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_redirect</span> <span class="tok-no">off</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Events</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/events</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">proxy_pass</span> <span class="tok-s">http://127.0.0.1:8888/events</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_http_version</span> <span class="tok-mi">1</span><span class="tok-s">.1</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Upgrade</span> <span class="tok-nv">$http_upgrade</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Connection</span> <span class="tok-s">&quot;upgrade&quot;</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_connect_timeout</span> <span class="tok-s">7d</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_send_timeout</span> <span class="tok-s">7d</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_read_timeout</span> <span class="tok-s">7d</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># TLS</span>&#x000A;    <span class="tok-c1"># Configure your TLS following the best practices inside your company</span>&#x000A;<span class="tok-p">}</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1162,137 +1422,20 @@ restarting processes if something goes wrong, and for starting processes on syst
 <pre class="pygments highlight"><code data-lang="bash"><span></span>sudo systemctl restart nginx</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>Now you should have the service up and running on: <code><a class="bare" href="http://example.com/">http://example.com/</a></code></strong></p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_optional_modules_and_settings">8. Optional Modules and Settings</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The following items are completely optional and are up for you to configure them.
-Taiga-events module is also an optional feature, but its installation is part of this tutorial.</p>
-</div>
-<div class="sect2">
-<h3 id="_async_tasks_optional">8.1. Async tasks (Optional)</h3>
-<div class="paragraph">
-<p>The default behavior in Taiga is to do all tasks in a synchronous way, but some of them
-can be completely asynchronous (such as webhook or import/export tasks).
-To do this, you have to configure and install the <a href="https://github.com/celery/celery">Celery</a> service requirements.</p>
-</div>
-<div class="paragraph">
-<p>There is an exception related to exported files:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>If your instance works in <strong>asynchronous mode</strong>, the exported project files will be automatically removed from the storage after 24 hours.</p>
-</li>
-<li>
-<p>If your instance works in <strong>synchronous mode</strong>, the exported project files will not be automatically removed (taiga-back doesn&#8217;t know anything about the existence of such files).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Install <code>rabbitmq-server</code> and <code>redis-server</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo apt-get install -y rabbitmq-server redis-server</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To run Celery with Taiga, include the following code line in the <code>local.py</code> file:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-n">CELERY_ENABLED</span> <span class="tok-o">=</span> <span class="tok-bp">True</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can configure other broker or results backend. If you need more info about it, check the Celery documentation web page:
-<a class="bare" href="http://docs.celeryproject.org/en/latest/index.html">http://docs.celeryproject.org/en/latest/index.html</a></p>
-</div>
-<div class="paragraph">
-<p>Once you have configured Celery on Taiga, you have to add Celery to systemd configuration. See <a href="#systemd-and-gunicorn">Systemd and gunicorn</a> section.</p>
-</div>
-<div class="listingblock">
-<div class="title">Taiga Celery configuration block for systemd on <code>/etc/systemd/system/taiga_celery.service</code></div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="ini"><span></span><span class="tok-k">[Unit]</span>&#x000A;<span class="tok-na">Description</span><span class="tok-o">=</span><span class="tok-s">taiga_celery</span>&#x000A;<span class="tok-na">After</span><span class="tok-o">=</span><span class="tok-s">network.target</span>&#x000A;&#x000A;<span class="tok-k">[Service]</span>&#x000A;<span class="tok-na">User</span><span class="tok-o">=</span><span class="tok-s">taiga</span>&#x000A;<span class="tok-na">Environment</span><span class="tok-o">=</span><span class="tok-s">PYTHONUNBUFFERED=true</span>&#x000A;<span class="tok-na">WorkingDirectory</span><span class="tok-o">=</span><span class="tok-s">/home/taiga/taiga-back</span>&#x000A;<span class="tok-na">ExecStart</span><span class="tok-o">=</span><span class="tok-s">/home/taiga/.virtualenvs/taiga/bin/celery -A taiga worker --concurrency 4 -l INFO</span>&#x000A;<span class="tok-na">Restart</span><span class="tok-o">=</span><span class="tok-s">always</span>&#x000A;<span class="tok-na">RestartSec</span><span class="tok-o">=</span><span class="tok-s">3</span>&#x000A;<span class="tok-na">ExecStop</span><span class="tok-o">=</span><span class="tok-s">/bin/kill -s TERM $MAINPID</span>&#x000A;&#x000A;<span class="tok-k">[Install]</span>&#x000A;<span class="tok-na">WantedBy</span><span class="tok-o">=</span><span class="tok-s">default.target</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Reload the circus configuration, restart taiga, then start taiga-celery:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo systemctl daemon-reload&#x000A;sudo systemctl start taiga_celery&#x000A;sudo systemctl <span class="tok-nb">enable</span> taiga_celery&#x000A;sudo systemctl restart taiga</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_taiga_hardening_https">8.2. Taiga Hardening - HTTPS</h3>
-<div class="paragraph">
-<p>Follow the instructions in this section to server Taiga under HTTPS.</p>
-</div>
-<div class="paragraph">
-<p>Place the SSL certificates in <code>/etc/nginx/ssl</code>. It is recommended to replace
-the original configuration for <code>port 80</code> so that users are redirected to the HTTPS
-version automatically.</p>
-</div>
-<div class="paragraph">
-<p>Second, we need to generate a strong DH parameter:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="pygments highlight"><code data-lang="nginx"><span></span><span class="tok-k">cd</span> <span class="tok-s">/etc/ssl</span>&#x000A;<span class="tok-s">sudo</span> <span class="tok-s">openssl</span> <span class="tok-s">dhparam</span> <span class="tok-s">-out</span> <span class="tok-s">dhparam.pem</span> <span class="tok-mi">4096</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Update the configuration in <code>/etc/nginx/conf.d/taiga.conf</code> as follows:</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="nginx"><span></span><span class="tok-k">server</span> <span class="tok-p">{</span>&#x000A;    <span class="tok-kn">listen</span> <span class="tok-mi">80</span> <span class="tok-s">default_server</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">server_name</span> <span class="tok-s">_</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">return</span> <span class="tok-mi">301</span> <span class="tok-s">https://</span><span class="tok-nv">$server_name$request_uri</span><span class="tok-p">;</span>&#x000A;<span class="tok-p">}</span>&#x000A;&#x000A;<span class="tok-k">server</span> <span class="tok-p">{</span>&#x000A;    <span class="tok-kn">listen</span> <span class="tok-mi">443</span> <span class="tok-s">ssl</span> <span class="tok-s">default_server</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">server_name</span> <span class="tok-s">_</span><span class="tok-p">;</span>&#x000A;&#x000A;    <span class="tok-kn">large_client_header_buffers</span> <span class="tok-mi">4</span> <span class="tok-mi">32k</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">client_max_body_size</span> <span class="tok-s">50M</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">charset</span> <span class="tok-s">utf-8</span><span class="tok-p">;</span>&#x000A;&#x000A;    <span class="tok-kn">index</span> <span class="tok-s">index.html</span><span class="tok-p">;</span>&#x000A;&#x000A;    <span class="tok-c1"># Frontend</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">root</span> <span class="tok-s">/home/taiga/taiga-front-dist/dist/</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">try_files</span> <span class="tok-nv">$uri</span> <span class="tok-nv">$uri/</span> <span class="tok-s">/index.html</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Backend</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/api</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Host</span> <span class="tok-nv">$http_host</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Real-IP</span> <span class="tok-nv">$remote_addr</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Scheme</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-Proto</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-For</span> <span class="tok-nv">$proxy_add_x_forwarded_for</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_pass</span> <span class="tok-s">http://127.0.0.1:8001/api</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_redirect</span> <span class="tok-no">off</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Admin access (/admin/)</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/admin</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Host</span> <span class="tok-nv">$http_host</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Real-IP</span> <span class="tok-nv">$remote_addr</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Scheme</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-Proto</span> <span class="tok-nv">$scheme</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">X-Forwarded-For</span> <span class="tok-nv">$proxy_add_x_forwarded_for</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_pass</span> <span class="tok-s">http://127.0.0.1:8001</span><span class="tok-nv">$request_uri</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_redirect</span> <span class="tok-no">off</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Static files</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/static</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">alias</span> <span class="tok-s">/home/taiga/taiga-back/static</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Media files</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/media</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">alias</span> <span class="tok-s">/home/taiga/taiga-back/media</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># Events</span>&#x000A;    <span class="tok-kn">location</span> <span class="tok-s">/events</span> <span class="tok-p">{</span>&#x000A;        <span class="tok-kn">proxy_pass</span> <span class="tok-s">http://127.0.0.1:8888/events</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_http_version</span> <span class="tok-mi">1</span><span class="tok-s">.1</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Upgrade</span> <span class="tok-nv">$http_upgrade</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_set_header</span> <span class="tok-s">Connection</span> <span class="tok-s">&quot;upgrade&quot;</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_connect_timeout</span> <span class="tok-s">7d</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_send_timeout</span> <span class="tok-s">7d</span><span class="tok-p">;</span>&#x000A;        <span class="tok-kn">proxy_read_timeout</span> <span class="tok-s">7d</span><span class="tok-p">;</span>&#x000A;    <span class="tok-p">}</span>&#x000A;&#x000A;    <span class="tok-c1"># SSL</span>&#x000A;    <span class="tok-kn">add_header</span> <span class="tok-s">Strict-Transport-Security</span> <span class="tok-s">&quot;max-age=63072000</span><span class="tok-p">;</span> <span class="tok-kn">includeSubdomains</span><span class="tok-p">;</span> <span class="tok-kn">preload&quot;</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">add_header</span> <span class="tok-s">Public-Key-Pins</span> <span class="tok-s">&#39;pin-sha256=&quot;klO23nT2ehFDXCfx3eHTDRESMz3asj1muO+4aIdjiuY=&quot;</span><span class="tok-p">;</span> <span class="tok-kn">pin-sha256=&quot;633lt352PKRXbOwf4xSEa1M517scpD3l5f79xMD9r9Q=&quot;</span><span class="tok-p">;</span> <span class="tok-kn">max-age=2592000</span><span class="tok-p">;</span> <span class="tok-kn">includeSubDomains&#39;</span><span class="tok-p">;</span>&#x000A;&#x000A;    <span class="tok-kn">ssl</span> <span class="tok-no">on</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">ssl_certificate</span> <span class="tok-s">/etc/nginx/ssl/example.com/ssl-bundle.crt</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">ssl_certificate_key</span> <span class="tok-s">/etc/nginx/ssl/example.com/example_com.key</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">ssl_session_timeout</span> <span class="tok-mi">5m</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">ssl_protocols</span> <span class="tok-s">TLSv1</span> <span class="tok-s">TLSv1.1</span> <span class="tok-s">TLSv1.2</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">ssl_prefer_server_ciphers</span> <span class="tok-no">on</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">ssl_ciphers</span> <span class="tok-s">&#39;ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!3DES:!MD5:!PSK&#39;</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">ssl_session_cache</span> <span class="tok-s">shared:SSL:10m</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">ssl_dhparam</span> <span class="tok-s">/etc/ssl/dhparam.pem</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">ssl_stapling</span> <span class="tok-no">on</span><span class="tok-p">;</span>&#x000A;    <span class="tok-kn">ssl_stapling_verify</span> <span class="tok-no">on</span><span class="tok-p">;</span>&#x000A;&#x000A;<span class="tok-p">}</span></code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Before activating the HTTPS site, the configuration for the frontend and the backend must be updated.
-Change the scheme from <code>http</code> to <code>https</code> throughout the configurations.</p>
-</div>
-<div class="listingblock">
-<div class="title">Update <code>~/taiga-back/settings/local.py</code>:</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="python"><span></span><span class="tok-kn">from</span> <span class="tok-nn">.common</span> <span class="tok-kn">import</span> <span class="tok-o">*</span>&#x000A;&#x000A;<span class="tok-n">MEDIA_URL</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;https://example.com/media/&quot;</span>&#x000A;<span class="tok-n">STATIC_URL</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;https://example.com/static/&quot;</span>&#x000A;<span class="tok-n">SITES</span><span class="tok-p">[</span><span class="tok-s2">&quot;front&quot;</span><span class="tok-p">][</span><span class="tok-s2">&quot;scheme&quot;</span><span class="tok-p">]</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;https&quot;</span>&#x000A;<span class="tok-n">SITES</span><span class="tok-p">[</span><span class="tok-s2">&quot;front&quot;</span><span class="tok-p">][</span><span class="tok-s2">&quot;domain&quot;</span><span class="tok-p">]</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;example.com&quot;</span>&#x000A;&#x000A;<span class="tok-n">SECRET_KEY</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;theveryultratopsecretkey&quot;</span>&#x000A;&#x000A;<span class="tok-n">DEBUG</span> <span class="tok-o">=</span> <span class="tok-bp">False</span>&#x000A;<span class="tok-n">PUBLIC_REGISTER_ENABLED</span> <span class="tok-o">=</span> <span class="tok-bp">True</span>&#x000A;&#x000A;<span class="tok-n">DEFAULT_FROM_EMAIL</span> <span class="tok-o">=</span> <span class="tok-s2">&quot;no-reply@example.com&quot;</span>&#x000A;<span class="tok-n">SERVER_EMAIL</span> <span class="tok-o">=</span> <span class="tok-n">DEFAULT_FROM_EMAIL</span>&#x000A;&#x000A;<span class="tok-c1"># Uncomment and populate with proper connection parameters</span>&#x000A;<span class="tok-c1"># to enable email sending.</span>&#x000A;<span class="tok-c1">#EMAIL_BACKEND = &quot;django.core.mail.backends.smtp.EmailBackend&quot;</span>&#x000A;<span class="tok-c1">#EMAIL_USE_TLS = False</span>&#x000A;<span class="tok-c1">#EMAIL_HOST = &quot;localhost&quot;</span>&#x000A;<span class="tok-c1">#EMAIL_HOST_USER = &quot;&quot;</span>&#x000A;<span class="tok-c1">#EMAIL_HOST_PASSWORD = &quot;&quot;</span>&#x000A;<span class="tok-c1">#EMAIL_PORT = 25</span>&#x000A;&#x000A;<span class="tok-c1"># Uncomment and populate with proper connection parameters</span>&#x000A;<span class="tok-c1"># to enable GitHub login/sign-in.</span>&#x000A;<span class="tok-c1">#GITHUB_API_CLIENT_ID = &quot;yourgithubclientid&quot;</span>&#x000A;<span class="tok-c1">#GITHUB_API_CLIENT_SECRET = &quot;yourgithubclientsecret&quot;</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Update <code>~/taiga-front-dist/dist/conf.json</code>:</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="json"><span></span><span class="tok-p">{</span>&#x000A;    <span class="tok-nt">&quot;api&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;https://example.com/api/v1/&quot;</span><span class="tok-p">,</span>&#x000A;    <span class="tok-nt">&quot;eventsUrl&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;wss://example.com/events&quot;</span><span class="tok-p">,</span>&#x000A;    <span class="tok-nt">&quot;debug&quot;</span><span class="tok-p">:</span> <span class="tok-s2">&quot;true&quot;</span><span class="tok-p">,</span>&#x000A;    <span class="tok-nt">&quot;publicRegisterEnabled&quot;</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span>&#x000A;    <span class="tok-nt">&quot;feedbackEnabled&quot;</span><span class="tok-p">:</span> <span class="tok-kc">true</span><span class="tok-p">,</span>&#x000A;    <span class="tok-nt">&quot;privacyPolicyUrl&quot;</span><span class="tok-p">:</span> <span class="tok-kc">null</span><span class="tok-p">,</span>&#x000A;    <span class="tok-nt">&quot;termsOfServiceUrl&quot;</span><span class="tok-p">:</span> <span class="tok-kc">null</span><span class="tok-p">,</span>&#x000A;    <span class="tok-nt">&quot;maxUploadFileSize&quot;</span><span class="tok-p">:</span> <span class="tok-kc">null</span>&#x000A;<span class="tok-p">}</span></code></pre>
-</div>
-</div>
 <div class="listingblock">
 <div class="title">Restart all Taiga services after updating the configuration:</div>
 <div class="content">
 <pre class="pygments highlight"><code data-lang="bash"><span></span>sudo systemctl restart <span class="tok-s1">&#39;taiga*&#39;</span></code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Reload the <code>nginx</code> configuration:</div>
-<div class="content">
-<pre class="pygments highlight"><code data-lang="bash"><span></span>sudo systemctl reload nginx</code></pre>
+<div class="paragraph">
+<p><strong>Now you should have the service up and running on: <code><a class="bare" href="https://example.com/">https://example.com/</a></code></strong></p>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_troubleshooting">9. Troubleshooting</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="troubleshooting">2.12. Troubleshooting</h3>
 <div class="ulist">
-<div class="title">If you face any issue during or after installing Taiga, please collect the content of the following files:</div>
+<div class="title">If you face any issue during or after installing Taiga, please check the content of the following files:</div>
 <ul>
 <li>
 <p><code>/etc/nginx/conf.d/taiga.conf</code></p>
@@ -1301,19 +1444,25 @@ Change the scheme from <code>http</code> to <code>https</code> throughout the co
 <p><code>/etc/systemd/system/taiga.service</code></p>
 </li>
 <li>
-<p><code>/etc/systemd/system/taiga_celery.service</code></p>
+<p><code>/etc/systemd/system/taiga-async.service</code></p>
 </li>
 <li>
-<p><code>/etc/systemd/system/taiga_events.service</code></p>
+<p><code>/etc/systemd/system/taiga-events.service</code></p>
 </li>
 <li>
-<p><code>/home/taiga/taiga-back/settings/local.py</code></p>
+<p><code>/etc/systemd/system/taiga-protected.service</code></p>
+</li>
+<li>
+<p><code>/home/taiga/taiga-back/settings/config.py</code></p>
 </li>
 <li>
 <p><code>/home/taiga/taiga-front-dist/dist/conf.json</code></p>
 </li>
 <li>
 <p><code>/home/taiga/taiga-events/config.json</code></p>
+</li>
+<li>
+<p><code>/home/taiga/taiga-protected/.venv</code></p>
 </li>
 <li>
 <p>The result of command <code>sudo systemctl status 'taiga*'</code></p>
@@ -1332,9 +1481,10 @@ Change the scheme from <code>http</code> to <code>https</code> throughout the co
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-08-24 17:55:19 CEST
+Last updated 2021-02-01 18:21:51 +0100
 </div>
 </div>
 </div>
