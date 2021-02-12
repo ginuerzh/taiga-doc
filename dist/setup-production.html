@@ -639,12 +639,15 @@ This document explains how to deploy a full Taiga service for a production envir
 <div class="sect2">
 <h3 id="_configuration">1.3. Configuration</h3>
 <div class="paragraph">
-<p>There are two options to configure taiga-docker, a simple and a complex configuration:</p>
+<p>There are two options to configure taiga-docker, a simple and an advanced configuration:</p>
 </div>
 <div class="sect3">
 <h4 id="_simple_configuration">1.3.1. Simple configuration:</h4>
 <div class="paragraph">
 <p>This configuration is likely to suit what you need. Edit environment variables in <code>docker-compose.yml</code> and <code>docker-compose-inits.yml</code>. Have in mind that some of the variables are in both files, and you need to edit both.</p>
+</div>
+<div class="paragraph">
+<p>When it&#8217;s relevant, you&#8217;ll find the configuration split into <code>configuration</code> and <code>customisation</code> sections. In <code>configuration</code> there are the mandatory environment variables that you should take special care as they come with default values. In <code>customisation</code> there are the optional modules and configurations, which will be typically disabled by default and it&#8217;s up to you enable and configure them.</p>
 </div>
 <div class="paragraph">
 <div class="title">taiga-db</div>
@@ -718,6 +721,20 @@ More info about this environment variables <a href="https://docs.djangoproject.c
 <p><code>PUBLIC_REGISTER_ENABLED</code> to allow a public register when you configure this variable to "True". By default is "False".
 Should be the same as this var in <code>taiga-front</code>.</p>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title"></div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Taiga (in its default configuration) disables both Gitlab or Github oauth buttons whenever the public registration option hasn&#8217;t been activated. To be able to use Github/Gitlab login/registration, make sure you have public registration activated on your Taiga instance.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Telemetry Settings:</p>
 </div>
@@ -746,15 +763,21 @@ Uncomment <code>EMAIL_BACKEND</code> variable, but do not modify unless you know
 <p>Github settings:</p>
 </div>
 <div class="paragraph">
-<p><code>GITHUB_API_CLIENT_ID</code>, <code>GITHUB_API_CLIENT_SECRET</code> used for login with Github.
+<p><code>ENABLE_GITHUB_AUTH</code>, <code>GITHUB_API_CLIENT_ID</code>, <code>GITHUB_API_CLIENT_SECRET</code> used for login with Github.
 Get these in your profile <a class="bare" href="https://github.com/settings/apps">https://github.com/settings/apps</a> or in your organization profile <a class="bare" href="https://github.com/organizations/{ORGANIZATION-SLUG}/settings/applications">https://github.com/organizations/{ORGANIZATION-SLUG}/settings/applications</a></p>
 </div>
 <div class="paragraph">
 <p>Gitlab settings:</p>
 </div>
 <div class="paragraph">
-<p><code>GITLAB_API_CLIENT_ID</code>, <code>GITLAB_API_CLIENT_SECRET</code>, <code>GITLAB_URL</code> used for login with GitLab.
+<p><code>ENABLE_GITLAB_AUTH</code>, <code>GITLAB_API_CLIENT_ID</code>, <code>GITLAB_API_CLIENT_SECRET</code>, <code>GITLAB_URL</code> used for login with GitLab.
 Get these in your profile <a class="bare" href="https://{YOUR-GITLAB}/profile/applications">https://{YOUR-GITLAB}/profile/applications</a> or in your organization profile <a class="bare" href="https://{YOUR-GITLAB}/admin/applications">https://{YOUR-GITLAB}/admin/applications</a></p>
+</div>
+<div class="paragraph">
+<p>Slack:</p>
+</div>
+<div class="paragraph">
+<p>Set <code>ENABLE_SLACK</code> to "True" to enjoy the integration with Slack.</p>
 </div>
 <div class="paragraph">
 <p>Importers:</p>
@@ -792,18 +815,32 @@ Get these in your profile <a class="bare" href="https://{YOUR-GITLAB}/profile/ap
 <p><code>PUBLIC_REGISTER_ENABLED</code> to allow a public register, configure this variable to "true". By default is "false".
 Should be the same as this var in <code>taiga-back</code>.</p>
 </div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title"></div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Taiga (in its default configuration) disables both Gitlab or Github oauth buttons whenever the public registration option hasn&#8217;t been activated. To be able to use Github/Gitlab login/registration, make sure you have public registration activated on your Taiga instance.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
 <p>Github settings:</p>
 </div>
 <div class="paragraph">
-<p><code>GITHUB_CLIENT_ID</code> used for login with Github.
+<p><code>ENABLE_GITHUB_AUTH</code>, <code>GITHUB_CLIENT_ID</code> used for login with Github.
 Get these in your profile <a class="bare" href="https://github.com/settings/apps">https://github.com/settings/apps</a> or in your organization profile <a class="bare" href="https://github.com/organizations/{ORGANIZATION-SLUG}/settings/applications">https://github.com/organizations/{ORGANIZATION-SLUG}/settings/applications</a></p>
 </div>
 <div class="paragraph">
 <p>Gitlab settings:</p>
 </div>
 <div class="paragraph">
-<p><code>GITLAB_CLIENT_ID</code>, <code>GITLAB_URL</code> used for login with GitLab.
+<p><code>ENABLE_GITLAB_AUTH</code>, <code>GITLAB_CLIENT_ID</code>, <code>GITLAB_URL</code> used for login with GitLab.
 Get these in your profile <a class="bare" href="https://{YOUR-GITLAB}/profile/applications">https://{YOUR-GITLAB}/profile/applications</a> or in your organization profile <a class="bare" href="https://{YOUR-GITLAB}/admin/applications">https://{YOUR-GITLAB}/admin/applications</a></p>
 </div>
 <div class="paragraph">
@@ -811,6 +848,12 @@ Get these in your profile <a class="bare" href="https://{YOUR-GITLAB}/profile/ap
 </div>
 <div class="paragraph">
 <p>It&#8217;s possible to configure different platforms to import projects from them. Make sure that <code>ENABLE_XXXX_IMPORTER</code> envvar is configured in both taiga-back (x-environment) and taiga-front.</p>
+</div>
+<div class="paragraph">
+<p>Slack:</p>
+</div>
+<div class="paragraph">
+<p>Set <code>ENABLE_SLACK</code> to "true" to enjoy the integration with Slack.</p>
 </div>
 <div class="paragraph">
 <div class="title">taiga-protected</div>
@@ -1484,7 +1527,7 @@ Stop the developtment server (Ctrl+C) before continuing.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-08 07:45:02 +0100
+Last updated 2021-02-12 14:01:55 +0100
 </div>
 </div>
 </div>
